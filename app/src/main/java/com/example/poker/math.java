@@ -51,18 +51,10 @@ public class math {
 		
 	   // Calculate Statistics:
 	   int sumOfChances =0;
-	   if (7-cardsDeployed+cardsSuit[0] >=4){
-		   sumOfChances += cardsSuit[0]*comb(52-cardsDeployed-4,7-4-cardsDeployed);
-	   }
-	   if (7-cardsDeployed+cardsSuit[1] >=3){
-		   sumOfChances += cardsSuit[1]*comb(52-cardsDeployed-3,7-3-cardsDeployed);
-	   }
-	   if (7-cardsDeployed+cardsSuit[2] >=2){
-		   sumOfChances += cardsSuit[2]*comb(52-cardsDeployed-2,7-2-cardsDeployed);
-	   }
-	   if (7-cardsDeployed+cardsSuit[3] >=1){
-		   sumOfChances += cardsSuit[3]*comb(52-cardsDeployed-1,7-1-cardsDeployed);
-	   }
+	   sumOfChances += cardsSuit[0]*comb(52-cardsDeployed-4,7-4-cardsDeployed);
+	   sumOfChances += cardsSuit[1]*comb(52-cardsDeployed-3,7-3-cardsDeployed);
+	   sumOfChances += cardsSuit[2]*comb(52-cardsDeployed-2,7-2-cardsDeployed);
+	   sumOfChances += cardsSuit[3]*comb(52-cardsDeployed-1,7-1-cardsDeployed);
 	   if (7-cardsDeployed >=5){
 		   count =0;
 		   for (int i =0; i<4;i++){
