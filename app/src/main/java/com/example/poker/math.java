@@ -29,12 +29,25 @@ public class math {
    }
    
    public static void RoyalFlush(){
+	   String[] myCards = {"11","22", "A1", "B1", "C1", "D1"};
 	   
-	   // Parameters:
-	   int cardsDeployed =2;
-	   int[] cardsSuit = {0,1,0,0};
+	   int cardsDeployed = myCards.length;
+	   int count;
+	   int[] cardsSuit = {0,0,0,0};
 	   
-	   // Code:
+	   // Parse card hand
+		for (int type =48; type<52;type++){
+			count =-1;
+			for (String cards : myCards){
+				if (cards.charAt(1) == type && (cards.charAt(0) == 'A' || cards.charAt(0) == 'B' || cards.charAt(0) == 'C' || cards.charAt(0) == 'D' || cards.charAt(0) == 'E'))
+					count+=1;
+			}
+			if (count != -1)
+				cardsSuit[count] +=1;
+		}
+		System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
+		
+	   // Calculate Statistics:
 	   int sumOfChances =0;
 	   if (7-cardsDeployed+cardsSuit[0] >=4){
 		   sumOfChances += cardsSuit[0]*comb(52-cardsDeployed-4,7-4-cardsDeployed);
@@ -49,7 +62,7 @@ public class math {
 		   sumOfChances += cardsSuit[3]*comb(52-cardsDeployed-1,7-1-cardsDeployed);
 	   }
 	   if (7-cardsDeployed >=5){
-		   int count =0;
+		   count =0;
 		   for (int i =0; i<4;i++){
 			   count += cardsSuit[i];
 		   }
