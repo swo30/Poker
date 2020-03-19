@@ -1,4 +1,3 @@
-package com.example.poker;
 public class math {
    static double factorial(int n) {
       double fact = 1;
