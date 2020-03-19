@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton handButtons[] = new ImageButton[8];
 
     Button cardsNum[] = new Button[14];
-    String myCards[] = new String[7]; //2 hex number representing the cards
+    String myCards[] = new String[7]; //7 hex number representing the cards
     // 1 -> K & clubs,diamond,heart,spade
     // ie. A1 = 10 of clubs
     // ie. 14 = Ace of spade
@@ -44,8 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         heartButtn = findViewById(R.id.heart);
         spadeButtn = findViewById(R.id.spade);
 
-        myCards[0] = "";
-        myCards[1] = "";
+        for (int i=0; i<7; i++){
+            myCards[i] = "";
+        }
+
 
         cardsNum[0]  = null;
         cardsNum[1]  = findViewById(R.id.cardA);
@@ -109,8 +111,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void goToTableCards(){
-        Intent intent = new Intent(this, tablecards.class);
         if (counter >=7) {
+            Intent intent = new Intent(this, tablecards.class);
+            String myCardsStr = "";
+            for (int i=0;i<7;i++){
+                myCardsStr += myCards[i];
+            }
+            intent.putExtra("myCardsStr",myCardsStr);
             startActivity(intent);
         }
     }
