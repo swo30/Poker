@@ -27,6 +27,8 @@ public class math {
 	  RoyalFlush(myCards);
 	  System.out.println("Straight Flush: ");
 	  StraightFlush(myCards);
+	  System.out.println("Four of a Kind: ");
+	  FourOfKind(myCards);
 	  //System.out.println("6 cards ");
 	  //System.out.println("5 cards ");
    }
@@ -103,6 +105,32 @@ public class math {
    }
    
    public static void FourOfKind(String[] myCards){
+	   
+	   int[] cardsSuit = {13,0,0,0,0}; //0,1,2,3,4
+	   int cardsDeployed = myCards.length;
+	   int count=0;
+	   
+	   for (String cards: myCards){
+		   count =0;
+		   for (int i=0; i<cardsDeployed; i++){
+			   if (cards.charAt(0) == myCards[i].charAt(0)){
+				   count+=1;
+			   }
+		   }
+		   cardsSuit[count]+=1;
+		   cardsSuit[0]-=1;
+	   }
+
+	   System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
+	   
+	   
+	   int sumOfChances =0;
+	   sumOfChances += cardsSuit[0]*comb(52-4-cardsDeployed,7-4-cardsDeployed);
+	   sumOfChances += cardsSuit[1]*comb(52-3-cardsDeployed,7-3-cardsDeployed);
+	   sumOfChances += cardsSuit[2]*comb(52-2-cardsDeployed,7-2-cardsDeployed);
+	   sumOfChances += cardsSuit[3]*comb(52-1-cardsDeployed,7-1-cardsDeployed);
+	   
+	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
 	   
    }
 }
