@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:screenOrientation="portrait"
     android:orientation="vertical" >
 
     <Button
@@ -9,75 +10,122 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
+        android:visibility="gone"
         android:text="Debug" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="0">
 
         <TextView
-            android:id="@+id/peopleText"
+            android:id="@+id/cardsText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="How many people are playing?"
+            android:text="Your cards:"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0">
-        <SeekBar
-            android:id="@+id/seekBar"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:max="8"
-            android:progress="3" />
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
-        <TextView
-            android:id="@+id/howmanypeopleText"
+
+        <ImageButton
+            android:id="@+id/hand1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRiver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0">
+
+        <TextView
+            android:id="@+id/riverText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="5"
+            android:text="River cards:"
             android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
         android:layout_weight="2">
 
-        <TextView
-            android:id="@+id/burnerText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Is there burner cards?"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/burnerCheckBox"
+
+        <ImageButton
+            android:id="@+id/hand3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:checked="true"
-            android:text="" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -85,13 +133,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="0">
 
-
         <TextView
             android:id="@+id/pickText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="What is your hand?"
+            android:text="Pick your cards"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -102,7 +149,7 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="2"
         android:orientation="horizontal">
 
         <ImageButton
@@ -139,14 +186,12 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="1">
-
 
         <Button
             android:id="@+id/cardA"
