@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:screenOrientation="portrait"
     android:orientation="vertical" >
 
     <Button
@@ -9,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
+        android:visibility="gone"
         android:text="Debug" />
 
     <LinearLayout
@@ -22,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Current cards:"
+            android:text="Your cards:"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -30,40 +32,113 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="2">
+
+
+        <ImageButton
+            android:id="@+id/hand1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRiver"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="0">
 
-        <ImageView
+        <TextView
+            android:id="@+id/riverText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:scaleType="fitCenter"
-            android:src="@drawable/p11" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:visibility="visible"
-            android:src="@drawable/p12" />
+            android:gravity="center"
+            android:text="River cards:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
 
-        <LinearLayout
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="2">
+
+
+
+        <ImageButton
+            android:id="@+id/hand3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+        <ImageButton
+            android:id="@+id/hand7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0">
-
 
         <TextView
             android:id="@+id/pickText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="What is your hand?"
+            android:text="Pick your cards"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -74,7 +149,7 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="2"
         android:orientation="horizontal">
 
         <ImageButton

@@ -6,27 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int counter = 0;
     int suit = 0;
-    CheckBox burnerCheckBox ;
-    SeekBar seekBar;
-    TextView howmanypeopleText;
+
     ImageButton clubButtn;
     ImageButton diamondButtn;
     ImageButton heartButtn;
     ImageButton spadeButtn;
 
+    ImageButton handButtons[] = new ImageButton[8];
+
     Button cardsNum[] = new Button[14];
-    String myCards[] = new String[2]; //2 hex number representing the cards
+    String myCards[] = new String[7]; //2 hex number representing the cards
     // 1 -> K & clubs,diamond,heart,spade
     // ie. A1 = 10 of clubs
     // ie. 14 = Ace of spade
@@ -40,9 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DebugButton = findViewById(R.id.DebugButton);
 
-        burnerCheckBox = findViewById(R.id.burnerCheckBox);
+        DebugButton = findViewById(R.id.DebugButton);
 
         clubButtn = findViewById(R.id.club);
         diamondButtn = findViewById(R.id.diamond);
@@ -67,8 +62,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardsNum[12] = findViewById(R.id.cardQ);
         cardsNum[13] = findViewById(R.id.cardK);
 
-        addListeners();
+        handButtons[0]  = null;
+        handButtons[1]  = findViewById(R.id.hand1);
+        handButtons[2]  = findViewById(R.id.hand2);
+        handButtons[3]  = findViewById(R.id.hand3);
+        handButtons[4]  = findViewById(R.id.hand4);
+        handButtons[5]  = findViewById(R.id.hand5);
+        handButtons[6]  = findViewById(R.id.hand6);
+        handButtons[7]  = findViewById(R.id.hand7);
 
+        addListeners();
     }
 
     public void numVisible(boolean visible) {
@@ -81,7 +84,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 1; i <= 13; i++) {
                 cardsNum[i].setVisibility(View.INVISIBLE);
             }
+            setImages();
         }
+    }
+
+    public void setImages(){
+        String imageString = "p"+ myCards[counter-1].substring(0,1) + suit;
+        int resID = getResources().getIdentifier(imageString, "drawable", "com.example.poker");
+        handButtons[counter].setImageResource(resID);
     }
 
     public void addListeners() {
@@ -98,25 +108,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     public void goToTableCards(){
         Intent intent = new Intent(this, tablecards.class);
-
-        if (counter >=2) {
+        if (counter >=7) {
             startActivity(intent);
         }
     }
 
-
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-
             case R.id.DebugButton:
                 Toast.makeText(this,Integer.toString(counter),Toast.LENGTH_SHORT).show();
-                System.out.println(myCards[0]+myCards[1]);
+                for (int i=0;i<7;i++) {
+                    System.out.print(myCards[i]);
+                    System.out.print(" ");
+                }
                 break;
-
             case R.id.club:
                 numVisible(true);
                 suit = 1;
@@ -133,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numVisible(true);
                 suit = 4;
                 break;
-
 
             case R.id.cardA:
                 myCards[counter] = Integer.toHexString(1) + suit;
