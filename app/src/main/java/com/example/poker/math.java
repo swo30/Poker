@@ -22,7 +22,7 @@ public class math {
    }
    
    public static void main(String args[]) {
-	  String[] myCards = {"11","12", "13","14"};
+	  String[] myCards = {};
 	  System.out.println("Royal Flush: ");
 	  RoyalFlush(myCards);
 	  System.out.println("Straight Flush: ");
@@ -38,7 +38,7 @@ public class math {
 	   int[] cardsSuit = {0,0,0,0,0};
 	   
 	   // Parse card hand
-		for (int type =49; type<53;type++){
+		for (int type = '1'; type<'5';type++){
 			count =-1;
 			for (String cards : myCards){
 				if (cards.charAt(1) == type && (cards.charAt(0) == 'A' || cards.charAt(0) == 'B' || cards.charAt(0) == 'C' || cards.charAt(0) == 'D' || cards.charAt(0) == '1'))
@@ -73,12 +73,12 @@ public class math {
 	   int[] cardsSuit = {0,0,0,0,0}; //0,1,2,3
 	   int cardsDeployed = myCards.length;
 	   int count=0;
-	   for (int type = 49; type <53; type++){
+	   for (int type = '1'; type <'5'; type++){
 		   for (int i = 1; i<10; i++){
 			   count =0;
 			   for (int e = i; e<i+5; e++){
 				   for (String cards : myCards){
-					   if (cards.charAt(1) ==type && cards.charAt(0) == 48+e){
+					   if (cards.charAt(1) ==type && cards.charAt(0) == '1'+e){
 						   count +=1;
 					   }
 				   }
@@ -91,14 +91,18 @@ public class math {
 	   
 	   //Statistics
 	   int sumOfChances =0;
-	   sumOfChances += cardsSuit[0]*comb(52-5-cardsDeployed,7-5-cardsDeployed);
-	   sumOfChances += cardsSuit[1]*comb(52-4-cardsDeployed,7-4-cardsDeployed);
-	   sumOfChances += cardsSuit[2]*comb(52-3-cardsDeployed,7-3-cardsDeployed);
-	   sumOfChances += cardsSuit[3]*comb(52-2-cardsDeployed,7-2-cardsDeployed);
-	   sumOfChances += cardsSuit[4]*comb(52-1-cardsDeployed,7-1-cardsDeployed);
+	   sumOfChances += cardsSuit[0]*comb(52-6-cardsDeployed,7-5-cardsDeployed);
+	   sumOfChances += cardsSuit[1]*comb(52-5-cardsDeployed,7-4-cardsDeployed);
+	   sumOfChances += cardsSuit[2]*comb(52-4-cardsDeployed,7-3-cardsDeployed);
+	   sumOfChances += cardsSuit[3]*comb(52-3-cardsDeployed,7-2-cardsDeployed);
+	   sumOfChances += cardsSuit[4]*comb(52-2-cardsDeployed,7-1-cardsDeployed);
 	   
 	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
 
+	   
+   }
+   
+   public static void FourOfKind(String[] myCards){
 	   
    }
 }
