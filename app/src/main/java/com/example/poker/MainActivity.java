@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //The debugger
     Button DebugButton;
+    Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         DebugButton = findViewById(R.id.DebugButton);
+        nextButton = findViewById(R.id.nextButton);
+
 
         clubButtn = findViewById(R.id.club);
         diamondButtn = findViewById(R.id.diamond);
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spadeButtn = findViewById(R.id.spade);
 
         for (int i=0; i<7; i++){
-            myCards[i] = "";
+            myCards[i] = "0";
         }
 
 
@@ -77,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void numVisible(boolean visible) {
-        goToTableCards();
         if (visible){
             for (int i = 1; i <= 13; i++) {
                 cardsNum[i].setVisibility(View.VISIBLE);
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void addListeners() {
 
         DebugButton.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
+
 
         clubButtn   .setOnClickListener(this);
         diamondButtn.setOnClickListener(this);
@@ -111,15 +115,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void goToTableCards(){
-        if (counter >=7) {
-            Intent intent = new Intent(this, tablecards.class);
-            String myCardsStr = "";
-            for (int i=0;i<7;i++){
-                myCardsStr += myCards[i];
-            }
-            intent.putExtra("myCardsStr",myCardsStr);
-            startActivity(intent);
+        Intent intent = new Intent(this, tablecards.class);
+        String myCardsStr = "";
+        for (int i=0;i<7;i++){
+            myCardsStr += myCards[i];
         }
+        intent.putExtra("myCardsStr",myCardsStr);
+        startActivity(intent);
+
     }
 
     @Override
@@ -131,6 +134,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     System.out.print(myCards[i]);
                     System.out.print(" ");
                 }
+                break;
+            case R.id.nextButton:
+                //for (int i=0;i<7;i++) {
+                    //System.out.print(myCards[i]);
+                    //System.out.print(" ");
+                //}
+                goToTableCards();
                 break;
             case R.id.club:
                 numVisible(true);

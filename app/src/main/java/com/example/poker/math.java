@@ -45,7 +45,7 @@ public class math {
 		for (int type = '1'; type<'5';type++){
 			count =-1;
 			for (String cards : myCards){
-				if (cards.charAt(1) == type && (cards.charAt(0) == 'A' || cards.charAt(0) == 'B' || cards.charAt(0) == 'C' || cards.charAt(0) == 'D' || cards.charAt(0) == '1'))
+				if (cards.charAt(1) == type && (cards.charAt(0) == 'a' || cards.charAt(0) == 'b' || cards.charAt(0) == 'c' || cards.charAt(0) == 'd' || cards.charAt(0) == '1'))
 					count+=1;
 			}
 			if (count != -1)

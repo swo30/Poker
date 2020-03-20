@@ -32,8 +32,8 @@ public class tablecards extends AppCompatActivity {
     }
 
     private void updateText(){
-        double chances[] = new double [3];
-        chances[0]= math.RoyalFlush(myCards);
+        double chances[];
+        chances = math.RoyalFlush(myCards);
         RFChanceText.setText(String.valueOf(chances[0]));
 
 
