@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class tablecards extends AppCompatActivity {
@@ -45,8 +46,10 @@ public class tablecards extends AppCompatActivity {
         double chances[];
 
         //for (int i=0;i<10;i++){}
-        //chances = math.RoyalFlush(myCards);
-        //pokerHands[0].setText(String.valueOf(100*chances[2])+"%");
+
+        System.out.println("MY CARDS: " + Arrays.toString(myCards));
+        chances = math.RoyalFlush(myCards);
+        pokerHands[0].setText(String.valueOf(100*chances[2])+"%");
 
         chances = math.StraightFlush(myCards);
         pokerHands[1].setText(String.valueOf(100*chances[2])+"%");

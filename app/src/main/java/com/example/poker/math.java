@@ -36,8 +36,9 @@ public class math {
    }
    
    public static double[] RoyalFlush(String[] myCards){
-	   
+
 	   int cardsDeployed = myCards.length;
+	   System.out.println("cardsDeployed: "+cardsDeployed);
 	   int count;
 	   int[] cardsSuit = {0,0,0,0,0};
 	   

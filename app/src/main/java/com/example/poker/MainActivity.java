@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spadeButtn = findViewById(R.id.spade);
 
         for (int i=0; i<7; i++){
-            myCards[i] = "0";
+            myCards[i] = "00";
         }
 
 
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, tablecards.class);
         String myCardsStr = "";
         for (int i=0;i<7;i++){
-            myCardsStr += myCards[i];
+            if (myCards[i]!="00") myCardsStr += myCards[i];
         }
         intent.putExtra("myCardsStr",myCardsStr);
         startActivity(intent);
