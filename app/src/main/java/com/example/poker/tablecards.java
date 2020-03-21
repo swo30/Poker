@@ -36,27 +36,34 @@ public class tablecards extends AppCompatActivity {
         pokerHands[8] = findViewById(R.id.OPChance);
         pokerHands[9] = findViewById(R.id.HCText);
 
+
         String myCardsStr = intent.getStringExtra("myCardsStr");
         myCards = splitToNChar(myCardsStr, 2);
 
         updateText();
     }
 
+    private double [][]handCalculator(){
+        double [][]chances = new double [10][3];
+        chances[0] = math.RoyalFlush(myCards);
+        chances[1] = math.StraightFlush(myCards);
+        chances[2] = math.FourOfKind(myCards);
+        chances[3] = math.RoyalFlush(myCards);
+        chances[4] = math.RoyalFlush(myCards);
+        chances[5] = math.RoyalFlush(myCards);
+        chances[6] = math.RoyalFlush(myCards);
+        chances[7] = math.RoyalFlush(myCards);
+        chances[8] = math.RoyalFlush(myCards);
+        chances[9] = math.RoyalFlush(myCards);
+
+        return chances;
+    }
+
     private void updateText(){
-        double chances[];
-
-        //for (int i=0;i<10;i++){}
-
-        System.out.println("MY CARDS: " + Arrays.toString(myCards));
-        chances = math.RoyalFlush(myCards);
-        pokerHands[0].setText(String.valueOf(100*chances[2])+"%");
-
-        chances = math.StraightFlush(myCards);
-        pokerHands[1].setText(String.valueOf(100*chances[2])+"%");
-
-        chances = math.FourOfKind(myCards);
-        pokerHands[2].setText((100*chances[2])+"%");
-
+        double [][]chances = handCalculator();
+        for (int i=0;i<10;i++){
+            pokerHands[i].setText(String.valueOf(100*chances[i][2])+"%");
+        }
     }
 
     private static String[] splitToNChar(String text, int size) {

@@ -56,10 +56,10 @@ public class math {
 		
 	   // Calculate Statistics:
 	   int sumOfChances =0;
-	   sumOfChances += cardsSuit[0]*comb(52-cardsDeployed-4,7-4-cardsDeployed);
-	   sumOfChances += cardsSuit[1]*comb(52-cardsDeployed-3,7-3-cardsDeployed);
-	   sumOfChances += cardsSuit[2]*comb(52-cardsDeployed-2,7-2-cardsDeployed);
-	   sumOfChances += cardsSuit[3]*comb(52-cardsDeployed-1,7-1-cardsDeployed);
+	   for (int i=0;i<4;i++) {
+		   sumOfChances += cardsSuit[i]*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
+	   }
+
 	   if (7-cardsDeployed >=5){
 		   count =0;
 		   for (int i =0; i<4;i++){
@@ -74,8 +74,7 @@ public class math {
    }
    
    public static double[] StraightFlush(String[] myCards){
-	   
-	   
+
 	   int[] cardsSuit = {0,0,0,0,0}; //0,1,2,3
 	   int cardsDeployed = myCards.length;
 	   int count=0;
@@ -97,11 +96,9 @@ public class math {
 	   
 	   //Statistics
 	   int sumOfChances =0;
-	   sumOfChances += cardsSuit[0]*comb(52-6-cardsDeployed,7-5-cardsDeployed);
-	   sumOfChances += cardsSuit[1]*comb(52-5-cardsDeployed,7-4-cardsDeployed);
-	   sumOfChances += cardsSuit[2]*comb(52-4-cardsDeployed,7-3-cardsDeployed);
-	   sumOfChances += cardsSuit[3]*comb(52-3-cardsDeployed,7-2-cardsDeployed);
-	   sumOfChances += cardsSuit[4]*comb(52-2-cardsDeployed,7-1-cardsDeployed);
+	   for (int i=0;i<5;i++) {
+		   sumOfChances += cardsSuit[i]*comb(52-(6-i)-cardsDeployed,7-(5-i)-cardsDeployed);
+	   }
 	   
 	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
 
@@ -129,16 +126,15 @@ public class math {
 	   
 	   
 	   int sumOfChances =0;
-	   sumOfChances += cardsSuit[0]*comb(52-4-cardsDeployed,7-4-cardsDeployed);
-	   sumOfChances += cardsSuit[1]*comb(52-3-cardsDeployed,7-3-cardsDeployed);
-	   sumOfChances += cardsSuit[2]*comb(52-2-cardsDeployed,7-2-cardsDeployed);
-	   sumOfChances += cardsSuit[3]*comb(52-1-cardsDeployed,7-1-cardsDeployed);
+	   for (int i=0;i<4;i++) {
+		   sumOfChances += cardsSuit[i]*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
+	   }
 	   
 	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
 	   return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
    }
    
-   public static void YAYYA(){
+   public static void FullHouse(){
 	   
    }
 }
