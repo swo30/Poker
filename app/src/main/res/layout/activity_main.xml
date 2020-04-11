@@ -341,13 +341,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="0.2">
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="Calculate" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:enabled="false"
+            android:text="Calculate"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

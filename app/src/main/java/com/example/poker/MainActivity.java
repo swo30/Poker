@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //The debugger
     Button DebugButton;
     Button nextButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cardsNum[i].setVisibility(View.INVISIBLE);
             }
             setImages();
+            if (counter >=2) nextButton.setEnabled(true);
         }
     }
 

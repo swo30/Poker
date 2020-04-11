@@ -48,12 +48,12 @@ public class tablecards extends AppCompatActivity {
         chances[0] = math.RoyalFlush(myCards);
         chances[1] = math.StraightFlush(myCards);
         chances[2] = math.FourOfKind(myCards);
-        chances[3] = math.RoyalFlush(myCards);
+        chances[3] = math.Pair(myCards);
         chances[4] = math.RoyalFlush(myCards);
         chances[5] = math.RoyalFlush(myCards);
         chances[6] = math.RoyalFlush(myCards);
         chances[7] = math.RoyalFlush(myCards);
-        chances[8] = math.RoyalFlush(myCards);
+        chances[8] = math.Pair(myCards);
         chances[9] = math.RoyalFlush(myCards);
 
         return chances;
@@ -62,7 +62,7 @@ public class tablecards extends AppCompatActivity {
     private void updateText(){
         double [][]chances = handCalculator();
         for (int i=0;i<10;i++){
-            pokerHands[i].setText(String.valueOf(100*chances[i][2])+"%");
+            pokerHands[i].setText(String.valueOf(Math.floor(chances[i][2] * 1000000) / 10000)+"%");
         }
     }
 

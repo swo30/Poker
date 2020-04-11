@@ -100,9 +100,8 @@ public class math {
 		   sumOfChances += cardsSuit[i]*comb(52-(6-i)-cardsDeployed,7-(5-i)-cardsDeployed);
 	   }
 	   
-	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
-
-	   return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
+		System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
+		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
    }
    
    public static double[] FourOfKind(String[] myCards){
@@ -133,8 +132,25 @@ public class math {
 	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
 	   return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
    }
-   
-   public static void FullHouse(){
-	   
-   }
+
+	public static double[] FullHouse(String[] myCards){
+		double[] arr={5,6,7,8,9};
+		return arr;
+	}
+
+	public static double[] ThreeOfAKind(String[] myCards){
+		double[] arr={5,6,7,8,9};
+		return arr;
+	}
+
+	public static double[] Pair(String[] myCards){
+		int cardsDeployed = myCards.length;
+		double riverPair  = comb(13-cardsDeployed,1)*comb(4,2)*comb(13-(cardsDeployed+1),2)*4*4;
+		double handPair = cardsDeployed*comb(3,1)*comb(13-3,3)*4*4*4;
+
+		System.out.println("River pair: " + riverPair);
+		System.out.println("Hand pair: " + handPair);
+		return new double[] {-1,comb(52-cardsDeployed,7-cardsDeployed),((riverPair+handPair)/comb(52-cardsDeployed,7-cardsDeployed))};
+	}
+
 }
