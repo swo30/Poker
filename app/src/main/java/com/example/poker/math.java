@@ -145,8 +145,8 @@ public class math {
 
 	public static double[] Pair(String[] myCards){
 		int cardsDeployed = myCards.length;
-		double riverPair  = comb(13-cardsDeployed,1)*comb(4,2)*comb(13-(cardsDeployed+1),2)*4*4;
-		double handPair = cardsDeployed*comb(3,1)*comb(13-3,3)*4*4*4;
+		double riverPair  = comb(13-cardsDeployed,1)*comb(4,2)*comb(13-(cardsDeployed+1),7-(cardsDeployed+2))*Math.pow(4,(7-cardsDeployed-2));
+		double handPair = cardsDeployed*comb(3,1)*comb(13-cardsDeployed,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
 		boolean isPair = false;
 
 		 for (int i=0; i<cardsDeployed; i++){
@@ -160,7 +160,8 @@ public class math {
 		 	return new double []{1,1,1};
 		 }
 
-
+		System.out.println("River Pair: " + riverPair);
+		System.out.println("Hand Pair: " + handPair);
 		System.out.println("cardsDeployed: " + cardsDeployed);
 		return new double[] {-1,comb(52-cardsDeployed,7-cardsDeployed),((riverPair+handPair)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
