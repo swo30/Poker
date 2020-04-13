@@ -163,7 +163,7 @@ public class math {
 		System.out.println("River Pair: " + riverPair);
 		System.out.println("Hand Pair: " + handPair);
 		System.out.println("cardsDeployed: " + cardsDeployed);
-		return new double[] {-1,comb(52-cardsDeployed,7-cardsDeployed),((riverPair+handPair)/comb(52-cardsDeployed,7-cardsDeployed))};
+		return new double[] {handPair+riverPair,comb(52-cardsDeployed,7-cardsDeployed),((riverPair+handPair)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
 }

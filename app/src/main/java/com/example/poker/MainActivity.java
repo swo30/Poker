@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cardsNum[i].setVisibility(View.INVISIBLE);
             }
             setImages();
-            if (counter >=2) nextButton.setEnabled(true);
+            //if (counter >=2) nextButton.setEnabled(true);
         }
     }
 

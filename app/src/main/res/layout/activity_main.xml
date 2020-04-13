@@ -346,7 +346,7 @@
             android:id="@+id/nextButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Calculate"
             android:textSize="20sp"
             android:textStyle="bold" />
