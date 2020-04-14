@@ -4,7 +4,11 @@ Objective : Calculate poker hands chances with current cards in hands
 ## Format of strings:
 
 * Position 1: Rank/Value
-* Position 2: Suit (Clubs(1), Diamonds(2), Hearts(3), Spades(4))
+* Position 2: Suit 
+ 1. Clubs
+ 2. Diamonds
+ 3. Hearts
+ 4. Spades
 
 Example: "b3" is Jack of Hearts
 
