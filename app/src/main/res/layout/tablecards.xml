@@ -21,13 +21,14 @@
             android:textSize="20sp"
             android:layout_weight="1"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/RFChance"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -55,7 +56,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -83,7 +84,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -110,7 +111,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -137,7 +138,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -164,7 +165,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -192,7 +193,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -220,7 +221,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -247,7 +248,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -256,16 +257,17 @@
         android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_weight="1">
 
         <TextView
             android:id="@+id/HCText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="High Card aka you lost:"
             android:textSize="20sp"
-            android:layout_weight="1"
             android:textStyle="bold" />
 
         <TextView
@@ -274,7 +276,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="a"
+            android:text=""
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>

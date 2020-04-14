@@ -1,3 +1,5 @@
+package com.example.poker;
+
 public class math {
    static double factorial(int n) {
       double fact = 1;
@@ -27,13 +29,16 @@ public class math {
 	  RoyalFlush(myCards);
 	  System.out.println("Straight Flush: ");
 	  StraightFlush(myCards);
+	  System.out.println("Four of a Kind: ");
+	  FourOfKind(myCards);
 	  //System.out.println("6 cards ");
 	  //System.out.println("5 cards ");
    }
    
-   public static void RoyalFlush(String[] myCards){
-	   
+   public static double[] RoyalFlush(String[] myCards){
+
 	   int cardsDeployed = myCards.length;
+	   System.out.println("cardsDeployed: "+cardsDeployed);
 	   int count;
 	   int[] cardsSuit = {0,0,0,0,0};
 	   
@@ -41,7 +46,7 @@ public class math {
 		for (int type = '1'; type<'5';type++){
 			count =-1;
 			for (String cards : myCards){
-				if (cards.charAt(1) == type && (cards.charAt(0) == 'A' || cards.charAt(0) == 'B' || cards.charAt(0) == 'C' || cards.charAt(0) == 'D' || cards.charAt(0) == '1'))
+				if (cards.charAt(1) == type && (cards.charAt(0) == 'a' || cards.charAt(0) == 'b' || cards.charAt(0) == 'c' || cards.charAt(0) == 'd' || cards.charAt(0) == '1'))
 					count+=1;
 			}
 			if (count != -1)
@@ -51,10 +56,10 @@ public class math {
 		
 	   // Calculate Statistics:
 	   int sumOfChances =0;
-	   sumOfChances += cardsSuit[0]*comb(52-cardsDeployed-4,7-4-cardsDeployed);
-	   sumOfChances += cardsSuit[1]*comb(52-cardsDeployed-3,7-3-cardsDeployed);
-	   sumOfChances += cardsSuit[2]*comb(52-cardsDeployed-2,7-2-cardsDeployed);
-	   sumOfChances += cardsSuit[3]*comb(52-cardsDeployed-1,7-1-cardsDeployed);
+	   for (int i=0;i<4;i++) {
+		   sumOfChances += cardsSuit[i]*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
+	   }
+
 	   if (7-cardsDeployed >=5){
 		   count =0;
 		   for (int i =0; i<4;i++){
@@ -63,13 +68,13 @@ public class math {
 		   sumOfChances += (4-count)*comb(52-5-cardsDeployed,7-5-cardsDeployed);
 	   }
 	   
-	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
+	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
+		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
 
    }
    
-   public static void StraightFlush(String[] myCards){
-	   
-	   
+   public static double[] StraightFlush(String[] myCards){
+
 	   int[] cardsSuit = {0,0,0,0,0}; //0,1,2,3
 	   int cardsDeployed = myCards.length;
 	   int count=0;
@@ -91,18 +96,74 @@ public class math {
 	   
 	   //Statistics
 	   int sumOfChances =0;
-	   sumOfChances += cardsSuit[0]*comb(52-6-cardsDeployed,7-5-cardsDeployed);
-	   sumOfChances += cardsSuit[1]*comb(52-5-cardsDeployed,7-4-cardsDeployed);
-	   sumOfChances += cardsSuit[2]*comb(52-4-cardsDeployed,7-3-cardsDeployed);
-	   sumOfChances += cardsSuit[3]*comb(52-3-cardsDeployed,7-2-cardsDeployed);
-	   sumOfChances += cardsSuit[4]*comb(52-2-cardsDeployed,7-1-cardsDeployed);
+	   for (int i=0;i<5;i++) {
+		   sumOfChances += cardsSuit[i]*comb(52-(6-i)-cardsDeployed,7-(5-i)-cardsDeployed);
+	   }
 	   
-	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
-
-	   
+		System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
+		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
    }
    
-   public static void FourOfKind(String[] myCards){
+   public static double[] FourOfKind(String[] myCards){
 	   
+	   int[] cardsSuit = {13,0,0,0,0}; //0,1,2,3,4
+	   int cardsDeployed = myCards.length;
+	   int count=0;
+	   
+	   for (String cards: myCards){
+		   count =0;
+		   for (int i=0; i<cardsDeployed; i++){
+			   if (cards.charAt(0) == myCards[i].charAt(0)){
+				   count+=1;
+			   }
+		   }
+		   cardsSuit[count]+=1;
+		   cardsSuit[0]-=1;
+	   }
+
+	   System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
+	   
+	   
+	   int sumOfChances =0;
+	   for (int i=0;i<4;i++) {
+		   sumOfChances += cardsSuit[i]*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
+	   }
+	   
+	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
+	   return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
    }
+
+	public static double[] FullHouse(String[] myCards){
+		double[] arr={5,6,7,8,9};
+		return arr;
+	}
+
+	public static double[] ThreeOfAKind(String[] myCards){
+		double[] arr={5,6,7,8,9};
+		return arr;
+	}
+
+	public static double[] Pair(String[] myCards){
+		int cardsDeployed = myCards.length;
+		double riverPair  = comb(13-cardsDeployed,1)*comb(4,2)*comb(13-(cardsDeployed+1),7-(cardsDeployed+2))*Math.pow(4,(7-cardsDeployed-2));
+		double handPair = cardsDeployed*comb(3,1)*comb(13-cardsDeployed,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
+		boolean isPair = false;
+
+		 for (int i=0; i<cardsDeployed; i++){
+			for (int j=i+1; j<cardsDeployed; j++){
+				if (myCards[i].charAt(0) == myCards[j].charAt(0)){
+					isPair = true;
+				}
+			}
+		}
+		 if (isPair) {
+		 	return new double []{1,1,1};
+		 }
+
+		System.out.println("River Pair: " + riverPair);
+		System.out.println("Hand Pair: " + handPair);
+		System.out.println("cardsDeployed: " + cardsDeployed);
+		return new double[] {handPair+riverPair,comb(52-cardsDeployed,7-cardsDeployed),((riverPair+handPair)/comb(52-cardsDeployed,7-cardsDeployed))};
+	}
+
 }
