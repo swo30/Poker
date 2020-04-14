@@ -1,12 +1,12 @@
 # Poker
 Objective : Calculate poker hands chances with current cards in hands
 
-Format of strings:
+## Format of strings:
 
 * Position 1: Rank/Value
 * Position 2: Suit (Hearts, Clubs, Diamonds, Spades)
 
- Value to hex association:
+ Hex (in string format) to Rank/Value association:
  * 1: Ace
  * 2:2
  * ...
