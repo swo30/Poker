@@ -1,4 +1,4 @@
-package com.example.poker;
+//package com.example.poker;
 
 public class math {
    static double factorial(int n) {
@@ -24,13 +24,16 @@ public class math {
    }
    
    public static void main(String args[]) {
-	  String[] myCards = {};
-	  System.out.println("Royal Flush: ");
-	  RoyalFlush(myCards);
-	  System.out.println("Straight Flush: ");
-	  StraightFlush(myCards);
-	  System.out.println("Four of a Kind: ");
-	  FourOfKind(myCards);
+		String[] myCards = {};
+		System.out.println("Royal Flush: ");
+		RoyalFlush(myCards);
+		System.out.println("Straight Flush: ");
+		StraightFlush(myCards);
+		System.out.println("Four of a Kind: ");
+		FourOfKind(myCards);
+		ThreeOfAKind(myCards);
+	   System.out.println(comb(13,5));
+
 	  //System.out.println("6 cards ");
 	  //System.out.println("5 cards ");
    }
@@ -108,6 +111,9 @@ public class math {
 	   
 	   int[] cardsSuit = {13,0,0,0,0}; //0,1,2,3,4
 	   int cardsDeployed = myCards.length;
+
+	   //whats up brother
+	   String DEEZNUTS = "GOT HIM";
 	   int count=0;
 	   
 	   for (String cards: myCards){
@@ -122,8 +128,7 @@ public class math {
 	   }
 
 	   System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
-	   
-	   
+
 	   int sumOfChances =0;
 	   for (int i=0;i<4;i++) {
 		   sumOfChances += cardsSuit[i]*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
@@ -139,8 +144,23 @@ public class math {
 	}
 
 	public static double[] ThreeOfAKind(String[] myCards){
-		double[] arr={5,6,7,8,9};
-		return arr;
+		int cardsDeployed = myCards.length;
+		int[] cardPair = {0,0,0,0};
+		int cnt;
+		for (int i=0; i<cardsDeployed; i++){
+			cnt = 0;
+			for (int j=i+1; j<cardsDeployed; j++){
+				if (myCards[i].charAt(0) == myCards[j].charAt(0)){
+					cnt +=1;
+				}
+			}
+			cardPair[cnt] += 1;
+		}
+		System.out.println("cardPair: " + cardPair[0] + " " + cardPair[1] + " " + cardPair[2] + " " + cardPair[3]);
+		if (cardPair[2] >= 1){
+			return new double []{1,1,1}; //you have a three of a kind -> 100%
+		}
+		return new double []{0,0,0};
 	}
 
 	public static double[] Pair(String[] myCards){
