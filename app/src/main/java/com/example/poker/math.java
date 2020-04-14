@@ -160,7 +160,12 @@ public class math {
 		if (cardPair[2] >= 1){
 			return new double []{1,1,1}; //you have a three of a kind -> 100%
 		}
-		return new double []{0,0,0};
+
+		double noHand  = comb(13-cardsDeployed,1)*comb(4,3)*comb(13-(cardsDeployed+1),7-(cardsDeployed+3))*Math.pow(4,(7-(cardsDeployed+3)));
+		double oneHand = cardsDeployed*comb(3,2)*comb(13-cardsDeployed,(7-(cardsDeployed+2)))*Math.pow(4,(7-(cardsDeployed+2)));
+		double twoHand = cardsDeployed*comb(2,1)*comb(13-1,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
+
+		return new double[] {noHand + oneHand + twoHand,comb(52-cardsDeployed,7-cardsDeployed),((noHand + oneHand + twoHand)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
 	public static double[] Pair(String[] myCards){
