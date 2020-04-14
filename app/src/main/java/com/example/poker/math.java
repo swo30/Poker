@@ -1,4 +1,4 @@
-//package com.example.poker;
+package com.example.poker;
 
 public class math {
    static double factorial(int n) {
