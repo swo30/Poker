@@ -31,8 +31,8 @@ public class math {
 	  StraightFlush(myCards);
 	  System.out.println("Four of a Kind: ");
 	  FourOfKind(myCards);
-	  //System.out.println("6 cards ");
-	  //System.out.println("5 cards ");
+		ThreeOfAKind(myCards);
+
    }
    
    public static double[] RoyalFlush(String[] myCards){
@@ -108,7 +108,7 @@ public class math {
 	   
 	   int[] cardsSuit = {0,0,0,0,0}; //0,1,2,3,4
 	   int cardsDeployed = myCards.length;
-	   int count=0;
+     int count=0;
 	   int[] map = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	   
 	   for (String card: myCards){
@@ -125,8 +125,7 @@ public class math {
 			return new double[] {1,1,1};
 		
 	   System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
-	   
-	   
+
 	   int sumOfChances =0;
 	   for (int i=0;i<4;i++) {
 		   sumOfChances += (cardsSuit[i])*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
@@ -142,8 +141,31 @@ public class math {
 	}
 
 	public static double[] ThreeOfAKind(String[] myCards){
-		double[] arr={5,6,7,8,9};
-		return arr;
+		int cardsDeployed = myCards.length;
+		int[] cardPair = {0,0,0,0};
+		int cnt;
+		for (int i=0; i<cardsDeployed; i++){
+			cnt = 0;
+			for (int j=i+1; j<cardsDeployed; j++){
+				if (myCards[i].charAt(0) == myCards[j].charAt(0)){
+					cnt +=1;
+				}
+			}
+			cardPair[cnt] += 1;
+		}
+		//System.out.println("cardPair: " + cardPair[0] + " " + cardPair[1] + " " + cardPair[2] + " " + cardPair[3]);
+		if (cardPair[2] >= 1){
+			return new double []{1,1,1}; //you have a three of a kind -> 100%
+		}
+
+		double noHand  = comb(13-cardsDeployed,1)*comb(4,3)*comb(13-(cardsDeployed+1),7-(cardsDeployed+3))*Math.pow(4,(7-(cardsDeployed+3)));
+		double oneHand = cardsDeployed*comb(3,2)*comb(13-cardsDeployed,(7-(cardsDeployed+2)))*Math.pow(4,(7-(cardsDeployed+2)));
+		double twoHand = cardsDeployed*comb(2,1)*comb(13-1,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
+
+		System.out.println("noHand: " + noHand);
+		System.out.println("oneHand: " + oneHand);
+		System.out.println("twoHand: " + twoHand);
+		return new double[] {noHand + oneHand + twoHand,comb(52-cardsDeployed,7-cardsDeployed),((noHand + oneHand + twoHand)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
 	public static double[] Pair(String[] myCards){
