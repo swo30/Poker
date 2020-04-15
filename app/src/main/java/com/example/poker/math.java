@@ -156,7 +156,7 @@ public class math {
 			}
 			cardPair[cnt] += 1;
 		}
-		System.out.println("cardPair: " + cardPair[0] + " " + cardPair[1] + " " + cardPair[2] + " " + cardPair[3]);
+		//System.out.println("cardPair: " + cardPair[0] + " " + cardPair[1] + " " + cardPair[2] + " " + cardPair[3]);
 		if (cardPair[2] >= 1){
 			return new double []{1,1,1}; //you have a three of a kind -> 100%
 		}
@@ -165,6 +165,9 @@ public class math {
 		double oneHand = cardsDeployed*comb(3,2)*comb(13-cardsDeployed,(7-(cardsDeployed+2)))*Math.pow(4,(7-(cardsDeployed+2)));
 		double twoHand = cardsDeployed*comb(2,1)*comb(13-1,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
 
+		System.out.println("noHand: " + noHand);
+		System.out.println("oneHand: " + oneHand);
+		System.out.println("twoHand: " + twoHand);
 		return new double[] {noHand + oneHand + twoHand,comb(52-cardsDeployed,7-cardsDeployed),((noHand + oneHand + twoHand)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
