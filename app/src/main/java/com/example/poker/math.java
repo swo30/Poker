@@ -108,7 +108,7 @@ public class math {
 	   
 	   int[] cardsSuit = {0,0,0,0,0}; //0,1,2,3,4
 	   int cardsDeployed = myCards.length;
-     int count=0;
+	   int count=0;
 	   int[] map = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	   
 	   for (String card: myCards){
@@ -141,31 +141,30 @@ public class math {
 	}
 
 	public static double[] ThreeOfAKind(String[] myCards){
+
+		int[] cardsValue = {0,0,0,0,0}; //0,1,2,3,4
 		int cardsDeployed = myCards.length;
-		int[] cardPair = {0,0,0,0};
-		int cnt;
-		for (int i=0; i<cardsDeployed; i++){
-			cnt = 0;
-			for (int j=i+1; j<cardsDeployed; j++){
-				if (myCards[i].charAt(0) == myCards[j].charAt(0)){
-					cnt +=1;
-				}
-			}
-			cardPair[cnt] += 1;
+		int[] map = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+		for (String card: myCards){
+			if (card.charAt(0) < 58)
+				map[card.charAt(0)-49] +=1;
+			else
+				map[card.charAt(0)-98+10] +=1;
 		}
-		//System.out.println("cardPair: " + cardPair[0] + " " + cardPair[1] + " " + cardPair[2] + " " + cardPair[3]);
-		if (cardPair[2] >= 1){
-			return new double []{1,1,1}; //you have a three of a kind -> 100%
+		for(int i =0; i<13;i++){
+			cardsValue[map[i]]+=1;
+		}
+		if((cardsValue[3] > 0) || (cardsValue[4] >0)) {
+			return new double[]{1, 1, 1};
 		}
 
-		double noHand  = comb(13-cardsDeployed,1)*comb(4,3)*comb(13-(cardsDeployed+1),7-(cardsDeployed+3))*Math.pow(4,(7-(cardsDeployed+3)));
-		double oneHand = cardsDeployed*comb(3,2)*comb(13-cardsDeployed,(7-(cardsDeployed+2)))*Math.pow(4,(7-(cardsDeployed+2)));
-		double twoHand = cardsDeployed*comb(2,1)*comb(13-1,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
-
-		System.out.println("noHand: " + noHand);
-		System.out.println("oneHand: " + oneHand);
-		System.out.println("twoHand: " + twoHand);
-		return new double[] {noHand + oneHand + twoHand,comb(52-cardsDeployed,7-cardsDeployed),((noHand + oneHand + twoHand)/comb(52-cardsDeployed,7-cardsDeployed))};
+		int sumOfChances = 0;
+		for (int i=0;i<3;i++) {
+			sumOfChances += (cardsValue[i])*comb((4-i),(3-i))*comb(cardsValue[0],7-(cardsDeployed+3-i))*Math.pow(4,(7-(cardsDeployed+3-i)));
+		}
+		System.out.println("sumOfChances: " + sumOfChances);
+		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
 	public static double[] Pair(String[] myCards){
