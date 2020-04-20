@@ -136,13 +136,35 @@ public class math {
    }
 
 	public static double[] FullHouse(String[] myCards){
-		double[] arr={5,6,7,8,9};
-		return arr;
+		int[] cardsValue = {0,0,0,0,0}; //13-CD,singles,pairs,3kind,4kind
+		int cardsDeployed = myCards.length;
+		int[] map = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+		for (String card: myCards){
+			if (card.charAt(0) < 58)
+				map[card.charAt(0)-49] +=1;
+			else
+				map[card.charAt(0)-98+10] +=1;
+		}
+		for(int i =0; i<13;i++){
+			cardsValue[map[i]]+=1;
+		}
+		if (((cardsValue[3] > 0) && (cardsValue[2] >0)) || ((cardsValue[4] > 0) && (cardsValue[2] >0))) {
+			return new double[]{1, 1, 1};
+		}
+
+		//Stats
+		int sumOfChances = 0;
+		for (int i=0;i<3;i++) {
+			sumOfChances += (cardsValue[i])*comb((4-i),(3-i))*comb(cardsValue[0],7-(cardsDeployed+3-i))*Math.pow(4,(7-(cardsDeployed+3-i)));
+		}
+		System.out.println("sumOfChances: " + sumOfChances);
+		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
 	public static double[] ThreeOfAKind(String[] myCards){
 
-		int[] cardsValue = {0,0,0,0,0}; //0,1,2,3,4
+		int[] cardsValue = {0,0,0,0,0}; //13-CD,singles,pairs,3kind,4kind
 		int cardsDeployed = myCards.length;
 		int[] map = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 
