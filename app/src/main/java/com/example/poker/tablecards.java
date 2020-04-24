@@ -48,9 +48,9 @@ public class tablecards extends AppCompatActivity {
         chances[0] = math.RoyalFlush(myCards);
         chances[1] = math.StraightFlush(myCards);
         chances[2] = math.FourOfKind(myCards);
-        chances[3] = math.Pair(myCards);
+        chances[3] = math.FullHouse(myCards);
         chances[4] = math.RoyalFlush(myCards);
-        chances[5] = math.RoyalFlush(myCards);
+        chances[5] = math.FullHouse(myCards);
         chances[6] = math.ThreeOfAKind(myCards);
         chances[7] = math.RoyalFlush(myCards);
         chances[8] = math.Pair(myCards);
