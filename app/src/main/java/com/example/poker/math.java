@@ -40,7 +40,7 @@ public class math {
 	   int cardsDeployed = myCards.length;
 	   System.out.println("cardsDeployed: "+cardsDeployed);
 	   int count;
-	   int[] cardsSuit = {0,0,0,0,0};
+	   int[] cardsSuit = {0,0,0,0,0}; //13-CD,singles,pairs,3kind,4kind
 	   
 	   // Parse card hand
 		for (int type = '1'; type<'5';type++){
@@ -53,7 +53,8 @@ public class math {
 				cardsSuit[count] +=1;
 		}
 		System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
-		
+		if (cardsSuit[4] == 1) return new double[]{1,1,1};
+
 	   // Calculate Statistics:
 	   int sumOfChances =0;
 	   for (int i=0;i<4;i++) {
@@ -176,7 +177,7 @@ public class math {
 
 			case 4:
 				if  (cardsValue[1] == cardsDeployed) return new double[]{108.0, denom, 108.0/denom};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{64.0, denom, 64.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{832.0, denom, 832.0/denom};
 				if ((cardsValue[1] == cardsDeployed-4)&&(cardsValue[2] == 2)) return new double[]{420.0, denom, 420.0/denom};
 				if  (cardsValue[3] == 1) return new double[]{832.0, denom, 832.0/denom};
 				break;
