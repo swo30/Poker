@@ -70,7 +70,6 @@ public class math {
 	   
 	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
-
    }
    
    public static double[] StraightFlush(String[] myCards){
@@ -157,6 +156,9 @@ public class math {
 		//Stats
 		double denom = comb(52-cardsDeployed,7-cardsDeployed);
 		switch(cardsDeployed) {
+			case 7:
+				return new double[]{0, 0, 0};
+
 			case 6:
 				if  (cardsValue[1] == cardsDeployed) return new double[]{0, 0, 0};
 				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{0, 0, 0};
