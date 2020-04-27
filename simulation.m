@@ -31,8 +31,8 @@ function counter = FullHouse(myCards,counter)
     for i = 1:13
         cardsValue(map(i)+1) = cardsValue(map(i)+1) + 1;
     end
-    if (((cardsValue(3) > 0) && (cardsValue(4) >0)) || ((cardsValue(5) > 0) && (cardsValue(2) >0)))
-        %fprintf("We have a full house\n")
+    % 4k&3k or 3k&3k or 3k&pair or 4k&pair
+    if ( ((cardsValue(5)>0)&&(cardsValue(4)>0)) || ((cardsValue(4)>0)&&(cardsValue(4)>0)) || ((cardsValue(4)>0)&&(cardsValue(3)>0)) || ((cardsValue(5)>0)&&(cardsValue(3)>0)))
         counter = counter + 1;
     end
 end
