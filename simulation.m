@@ -1,12 +1,13 @@
+parpool(12);
 tic
 sims = 10000;
 %numCards = input("How many cards: ");
-numCards = 7;
+numCards = 5;
 counterVec = zeros(1,sims/10);
 
-for i = 1:(sims/10)
+parfor i = 1:(sims)
     counter = 0;
-    for j = 1:(sims*10)
+    for j = 1:(sims)
         myCards = randperm(52, numCards);
         counter = FullHouse(myCards,counter);
     end
@@ -15,6 +16,7 @@ end
 
 percentage = sum(counterVec,'all')/(sims*sims);
 fprintf("%.4f%%\n",100*percentage)
+delete(gcp('nocreate'))
 toc
 
 function counter = FullHouse(myCards,counter)
