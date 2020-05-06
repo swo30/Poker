@@ -170,38 +170,41 @@ public class math {
 				if ((cardsValue[1] == 2)&&(cardsValue[2] == 2)) return new double[]{4.0, denom, 4.0/denom};
 				if  (cardsValue[2] == 3) return new double[]{6.0,denom, 6.0/denom};
 				if  (cardsValue[3] == 1) return new double[]{9.0,denom, 9.0/denom};
+				if  (cardsValue[4] == 1) return new double[]{6.0,denom, 6.0/denom};
 				break;
 
 			case 5:
 				if  (cardsValue[1] == cardsDeployed) return new double[]{0, 0, 0};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{36.0, denom, 36.0/denom};
-				if ((cardsValue[1] == cardsDeployed-4)&&(cardsValue[2] == 2)) return new double[]{55.0, denom, 55.0/denom};
-				if  (cardsValue[3] == 1) return new double[]{78.0, denom, 78.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{27.0, denom, 27.0/denom};
+				if ((cardsValue[1] == cardsDeployed-4)&&(cardsValue[2] == 2)) return new double[]{181.0, denom, 181.0/denom};
+				if  (cardsValue[3] == 1) return new double[]{321.0, denom, 321.0/denom};
+				if  (cardsValue[4] == 1) return new double[]{201.0, denom, 201.0/denom};
 				break;
 
 			case 4:
 				if  (cardsValue[1] == cardsDeployed) return new double[]{108.0, denom, 108.0/denom};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{832.0, denom, 832.0/denom};
-				if ((cardsValue[1] == cardsDeployed-4)&&(cardsValue[2] == 2)) return new double[]{420.0, denom, 420.0/denom};
-				if  (cardsValue[3] == 1) return new double[]{832.0, denom, 832.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{936.0, denom, 936.0/denom};
+				if ((cardsValue[1] == cardsDeployed-4)&&(cardsValue[2] == 2)) return new double[]{4096.0, denom, 4096.0/denom};
+				if  (cardsValue[3] == 1) return new double[]{5856.0, denom, 5856.0/denom};
+				if  (cardsValue[4] == 1) return new double[]{3216.0, denom, 3216.0/denom};
 				break;
 
 			case 3:
-				if  (cardsValue[1] == cardsDeployed) return new double[]{1062.0, denom, 1062.0/denom};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{1820.0, denom, 1820.0/denom};
-				if  (cardsValue[3] == 1) return new double[]{18928.0, denom, 18928.0/denom};
+				if  (cardsValue[1] == cardsDeployed) return new double[]{3186.0, denom, 3186.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{16296.0, denom, 16296.0/denom};
+				if  (cardsValue[3] == 1) return new double[]{71076.0, denom, 71076.0/denom};
 				break;
 
 			case 2:
-				if  (cardsValue[1] == cardsDeployed) return new double[]{32136.0, denom, 32136.0/denom};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{75712.0, denom, 75712.0/denom};
+				if  (cardsValue[1] == cardsDeployed) return new double[]{47592.0, denom, 47592.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{184872.0, denom, 184872.0/denom};
 				break;
 
 			case 1:
-				return new double[]{292032.0, denom, 292032.0/denom};
+				return new double[]{473172.0, denom, 473172.0/denom};
 
 			case 0:
-				return new double[]{3473184.0, denom, 3473184.0/denom};
+				return new double[]{3514992.0, denom, 3514992.0/denom};
 
 		}
 		return new double[]{69,69,69}; //This line will never happen
