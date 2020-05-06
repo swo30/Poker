@@ -208,25 +208,21 @@ public class math {
 	}
 
 	public static double[] Flush(String[] myCards){
-		int[] suits = {0,0,0,0,0}; //null, clubs, diamonds, hearts, spade
-		int flushCount;
-		for (int type=1;type<=4;type++){
-			flushCount = 0;
-			for (String card: myCards){
-				if (card.charAt(1) == type){
-					flushCount++;
-				}
-				suits[type] = flushCount;
-				if (flushCount >=5) return new double[] {1,1,1};
-			}
-		}
+		int[] cardsSuit = {0,0,0,0,0}; //null, clubs, diamonds, hearts, spade
 
+		for (String cards : myCards){
+			cardsSuit[Character.getNumericValue(cards.charAt(1))] +=1;
+		}
+		for (int i=0; i<5; i++){
+			if (cardsSuit[i] >=5) return new double[] {1,1,1};
+		}
+		System.out.println("cardsSuit:" + cardsSuit[1] + cardsSuit[2] + cardsSuit[3] + cardsSuit[4]);
 		double sumOfChances = 0;
 		int cardsDeployed = myCards.length;
 		int cardsToPickAfterFlush = 0;
 		for (int i=0;i<5;i++) {
-			cardsToPickAfterFlush = cardsDeployed + 5 - suits[i];
-			sumOfChances += comb(13 - suits[i], 5 - suits[i])*comb(52-cardsToPickAfterFlush,7-cardsToPickAfterFlush);
+			cardsToPickAfterFlush = cardsDeployed + 5 - cardsSuit[i];
+			sumOfChances += comb(13 - cardsSuit[i], 5 - cardsSuit[i])*comb(52-cardsToPickAfterFlush,7-cardsToPickAfterFlush);
 		}
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
