@@ -16,12 +16,13 @@ public class math {
 	   if(r<0 || n <=0) return 0;
 	   return factorial(n) / (factorial(r) * factorial(n-r));
    }
-   
-   static double perm(int n, int r){
-	   if(r ==0) return 1;
-	   if(r<0 || n <=0) return 0;
-		return factorial(n) / factorial(n-r);
-   }
+
+	static int[] sum_array(int[] arr1, int[] arr2){
+		for (int i =0; i<arr1.length;i++){
+			arr1[i] += arr2[i];
+		}
+		return arr1;
+	}
 
 	///		105669616	35766640	10287472	5824000	1613040	3514992	224848	247540
 	///		52 choose 7 (133784560)
@@ -229,6 +230,54 @@ public class math {
 		}
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
+
+
+	public static int[] Straight(String[] myCards, int pos, int limit, int count){
+		int[] value ={0,0,0,0,0,0};
+		int num =0;
+		if (pos == limit){
+			value[count] +=1;
+			return value;
+		}
+
+		for(int type= '1'; type<'5';type++){
+			num =0;
+			for (String cards : myCards){
+				if (cards.charAt(1) ==type && cards.charAt(0) == '0'+pos){
+					num +=1;
+				}
+			}
+			value = sum_array(value, Straight(myCards, pos+1, limit, count + num));
+		}
+		return value;
+
+	}
+
+	public static double[] Straight(String[] myCards){
+
+		int[] cardsSuit = {0,0,0,0,0,0}; //0,1,2,3
+		int cardsDeployed = myCards.length;
+		int count=0;
+		for (int i = 1; i<11; i++){
+			cardsSuit = sum_array(cardsSuit, Straight(myCards, i, i+5,0));
+		}
+
+		System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3] + " " + cardsSuit[4] + " " + cardsSuit[5]);
+
+		//Statistics
+		int sumOfChances =0;
+		for (int i=0;i<5;i++) {
+			//sumOfChances += cardsSuit[i]*comb(52-(9-i)-cardsDeployed,7-(5-i)-cardsDeployed); //Not the good way
+			sumOfChances += cardsSuit[i]*comb(52-(5-i)-cardsDeployed,7-(5-i)-cardsDeployed); //The way we think maybe
+		}
+
+
+
+		System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
+		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
+
+	}
+
 
 	public static double[] ThreeOfAKind(String[] myCards){
 
