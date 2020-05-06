@@ -2,7 +2,9 @@ tic
 parpool(12);
 clear; clc;
 counter = 0;
-myCards = [];
+myCards = [1 14 26 39 50 11];
+suits = ceil(myCards./13);
+values = myCards - 13.*(suits-1)
 
 if (7-length(myCards) == 7)
     C = readmatrix('C.csv');
@@ -48,6 +50,10 @@ for i=1:length(counterVec)
 end
 toc
 delete(gcp('nocreate'))
+
+save('counterVec63Pair.mat','counterVec');
+%example = matfile('counterVec1.mat');
+% counterVec = example.counterVec;
 
 function counter = StraightFlush(myCards,counter)
     suits = ceil(myCards./13);

@@ -3,14 +3,10 @@ tic
 sims = 10000;
 %numCards = input("How many cards: ");
 numCards = 7;
-cnt1 = 0;
-cnt2 = 0;
-cnt3 = 0;
-cnt4 = 0;
-cnt5 = 0;
-counter =0;
+cnt1 = 0;cnt2 = 0;cnt3 = 0;cnt4 = 0;cnt5 = 0;counter = 0;
 parfor i = 1:(sims*sims)
     myCards = randperm(52, numCards);
+    myCards = [30 10 22 13];
 	cnt5 = cnt5 + FourKind(myCards,counter);
     cnt4 = cnt4 + FullHouse(myCards,counter);
     cnt3 = cnt3 + ThreeKind(myCards,counter);
@@ -59,7 +55,7 @@ function counter = FullHouse(myCards,counter)
     end
     % 4k&3k or 3k&3k or 3k&pair or 4k&pair
     if (((cardsValue(5)>0)&&(cardsValue(4)>0)) || ((cardsValue(4)>0)&&(cardsValue(4)>0)) || ((cardsValue(4)>0)&&(cardsValue(3)>0)) || ((cardsValue(5)>0)&&(cardsValue(3)>0)))
-    %if (((cardsValue(4)>0)&&(cardsValue(4)>0)) || ((cardsValue(4)>0)&&(cardsValue(3)>0)))
+    %if (((cardsValue(4)>1) || ((cardsValue(4)>0)&&(cardsValue(3)>0)))
         counter = counter + 1;
     end
 end
