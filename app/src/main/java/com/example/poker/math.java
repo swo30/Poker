@@ -330,41 +330,40 @@ public class math {
 		switch(cardsDeployed) {
 			case 7:
 				return new double[]{0, 0, 0};
-
 			case 6:
 				if  (cardsValue[1] == cardsDeployed) return new double[]{0, 0, 0};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{0, 0, 0};
-				if  (cardsValue[3] == 1) return new double[]{9.0,denom, 9.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{12.0, denom, 12.0/denom};
+				if  (cardsValue[3] == 1) return new double[]{10.0,denom, 10.0/denom};
 				break;
 
 			case 5:
-				if  (cardsValue[1] == cardsDeployed) return new double[]{0, 0, 0};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{36.0, denom, 36.0/denom};
-				if  (cardsValue[3] == 1) return new double[]{78.0, denom, 78.0/denom};
+				if  (cardsValue[1] == cardsDeployed) return new double[]{90.0, denom, 90.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{433.0, denom, 433.0/denom};
+				if  (cardsValue[3] == 1) return new double[]{355.0, denom, 355.0/denom};
 				break;
 
 			case 4:
-				if  (cardsValue[1] == cardsDeployed) return new double[]{108.0, denom, 108.0/denom};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{832.0, denom, 832.0/denom};
-				if  (cardsValue[3] == 1) return new double[]{832.0, denom, 832.0/denom};
+				if  (cardsValue[1] == cardsDeployed) return new double[]{2812.0, denom, 2812.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{8164.0, denom, 8164.0/denom};
+				if  (cardsValue[3] == 1) return new double[]{6560.0, denom, 6560.0/denom};
 				break;
 
 			case 3:
-				if  (cardsValue[1] == cardsDeployed) return new double[]{1062.0, denom, 1062.0/denom};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{1820.0, denom, 1820.0/denom};
-				if  (cardsValue[3] == 1) return new double[]{18928.0, denom, 18928.0/denom};
+				if  (cardsValue[1] == cardsDeployed) return new double[]{46489.0, denom, 46489.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{105924.0, denom, 105924.0/denom};
+				if  (cardsValue[3] == 1) return new double[]{83044.0, denom, 83044.0/denom};
 				break;
 
 			case 2:
-				if  (cardsValue[1] == cardsDeployed) return new double[]{32136.0, denom, 32136.0/denom};
-				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{75712.0, denom, 75712.0/denom};
+				if  (cardsValue[1] == cardsDeployed) return new double[]{536212.0, denom, 536212.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{1050088.0, denom, 1050088.0/denom};
 				break;
 
 			case 1:
-				return new double[]{292032.0, denom, 292032.0/denom};
+				return new double[]{4814740.0, denom, 4814740.0/denom};
 
 			case 0:
-				return new double[]{3473184.0, denom, 3473184.0/denom};
+				return new double[]{35766640.0, denom, 35766640.0/denom};
 
 		}
 		return new double[]{69,69,69}; //This line will never happen
@@ -374,8 +373,8 @@ public class math {
 
 	public static double[] Pair(String[] myCards){
 		int cardsDeployed = myCards.length;
-		double riverPair  = comb(13-cardsDeployed,1)*comb(4,2)*comb(13-(cardsDeployed+1),7-(cardsDeployed+2))*Math.pow(4,(7-cardsDeployed-2));
-		double handPair = cardsDeployed*comb(3,1)*comb(13-cardsDeployed,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
+		//double riverPair  = comb(13-cardsDeployed,1)*comb(4,2)*comb(13-(cardsDeployed+1),7-(cardsDeployed+2))*Math.pow(4,(7-cardsDeployed-2));
+		//double handPair = cardsDeployed*comb(3,1)*comb(13-cardsDeployed,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
 		boolean isPair = false;
 
 		 for (int i=0; i<cardsDeployed; i++){
@@ -389,9 +388,8 @@ public class math {
 		 	return new double []{1,1,1};
 		 }
 
-		System.out.println("River Pair: " + riverPair);
-		System.out.println("Hand Pair: " + handPair);
-		System.out.println("cardsDeployed: " + cardsDeployed);
+		double riverPair  = 13*comb(4,2)*comb(13,7-cardsDeployed-2)*Math.pow(4,7-cardsDeployed-2);
+		double handPair = 3*cardsDeployed*comb(52-cardsDeployed-1,7-cardsDeployed-1); // the 3 is 3 cards choose 1 because if there are less than 3 to choose from, then you already have a pair
 		return new double[] {handPair+riverPair,comb(52-cardsDeployed,7-cardsDeployed),((riverPair+handPair)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
