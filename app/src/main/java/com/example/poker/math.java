@@ -222,11 +222,13 @@ public class math {
 		System.out.println("cardsSuit:" + cardsSuit[1] + cardsSuit[2] + cardsSuit[3] + cardsSuit[4]);
 		double sumOfChances = 0;
 		int cardsDeployed = myCards.length;
-		int cardsToPickAfterFlush = 0;
-		for (int i=0;i<5;i++) {
-			cardsToPickAfterFlush = cardsDeployed + 5 - cardsSuit[i];
-			sumOfChances += comb(13 - cardsSuit[i], 5 - cardsSuit[i])*comb(52-cardsToPickAfterFlush,7-cardsToPickAfterFlush);
+
+		for (int suit = 1; suit <= 4; suit++) {
+			sumOfChances += comb(13-cardsSuit[suit],5-cardsSuit[suit])*comb(52-13-cardsDeployed+cardsSuit[suit],7-5-cardsDeployed+cardsSuit[suit]);
+			sumOfChances += comb(13-cardsSuit[suit],6-cardsSuit[suit])*comb(52-13-cardsDeployed+cardsSuit[suit],7-6-cardsDeployed+cardsSuit[suit]);
+			sumOfChances += comb(13-cardsSuit[suit],7-cardsSuit[suit])*comb(52-13-cardsDeployed+cardsSuit[suit],7-7-cardsDeployed+cardsSuit[suit]);
 		}
+
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
@@ -249,7 +251,6 @@ public class math {
 			value = sum_array(value, Straight(myCards, pos+1, limit, count + num));
 		}
 		return value;
-
 	}
 
 	public static double[] Straight(String[] myCards){
@@ -269,8 +270,6 @@ public class math {
 			//sumOfChances += cardsSuit[i]*comb(52-(9-i)-cardsDeployed,7-(5-i)-cardsDeployed); //Not the good way
 			sumOfChances += cardsSuit[i]*comb(52-(5-i)-cardsDeployed,7-(5-i)-cardsDeployed); //The way we think maybe
 		}
-
-
 
 		System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
@@ -305,7 +304,6 @@ public class math {
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
-
 	public static double[] TwoPair(String[] myCards){
 		int[] cardsValue = {0,0,0,0,0}; //Non-Values,singles,pairs,3kind,4kind
 		int cardsDeployed = myCards.length;
@@ -323,7 +321,6 @@ public class math {
 		if ((cardsValue[2] > 1) || (cardsValue[4] > 0) || ((cardsValue[3] > 0)&&(cardsValue[2] > 0))){
 			return new double[]{1, 1, 1};
 		}
-
 
 		//Stats
 		double denom = comb(52-cardsDeployed,7-cardsDeployed);
@@ -373,8 +370,6 @@ public class math {
 
 	public static double[] Pair(String[] myCards){
 		int cardsDeployed = myCards.length;
-		//double riverPair  = comb(13-cardsDeployed,1)*comb(4,2)*comb(13-(cardsDeployed+1),7-(cardsDeployed+2))*Math.pow(4,(7-cardsDeployed-2));
-		//double handPair = cardsDeployed*comb(3,1)*comb(13-cardsDeployed,(7-(cardsDeployed+1)))*Math.pow(4,(7-(cardsDeployed+1)));
 		boolean isPair = false;
 
 		 for (int i=0; i<cardsDeployed; i++){
@@ -387,10 +382,8 @@ public class math {
 		 if (isPair) {
 		 	return new double []{1,1,1};
 		 }
-
-		double riverPair  = 13*comb(4,2)*comb(13,7-cardsDeployed-2)*Math.pow(4,7-cardsDeployed-2);
-		double handPair = 3*cardsDeployed*comb(52-cardsDeployed-1,7-cardsDeployed-1); // the 3 is 3 cards choose 1 because if there are less than 3 to choose from, then you already have a pair
-		return new double[] {handPair+riverPair,comb(52-cardsDeployed,7-cardsDeployed),((riverPair+handPair)/comb(52-cardsDeployed,7-cardsDeployed))};
+		double sumOfChances = comb(13-cardsDeployed,7-cardsDeployed)*Math.pow(4,7-cardsDeployed);
+		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),1-(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
 
 }

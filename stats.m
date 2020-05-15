@@ -2,7 +2,7 @@ tic
 parpool(12);
 clear; clc;
 counter = 0;
-myCards = [1 14 26 39 50 11];
+myCards = [1];
 suits = ceil(myCards./13);
 values = myCards - 13.*(suits-1)
 
@@ -22,8 +22,8 @@ if isempty(AllPossibilities)
     denom = 1;
     FourKind(myCards,counter);
     FullHouse(myCards,counter);
-    Straight(myCards,counter);
     Flush(myCards,counter);
+    Straight(myCards,counter);
     ThreeKind(myCards,counter);
     TwoPair(myCards,counter);
     Pair(myCards,counter);
@@ -51,7 +51,7 @@ end
 toc
 delete(gcp('nocreate'))
 
-save('counterVec63Pair.mat','counterVec');
+%save('counterVec63Pair.mat','counterVec');
 %example = matfile('counterVec1.mat');
 % counterVec = example.counterVec;
 

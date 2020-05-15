@@ -12,11 +12,8 @@ import java.util.List;
 public class tablecards extends AppCompatActivity {
 
     math math = new math();
-
     Intent intent;
     String[] myCards;
-
-
     TextView pokerHands[] = new TextView[10];
 
     @Override
@@ -34,7 +31,6 @@ public class tablecards extends AppCompatActivity {
         pokerHands[6] = findViewById(R.id.TKChance);
         pokerHands[7] = findViewById(R.id.TPChance);
         pokerHands[8] = findViewById(R.id.OPChance);
-        pokerHands[9] = findViewById(R.id.HCText);
 
 
         String myCardsStr = intent.getStringExtra("myCardsStr");
@@ -44,7 +40,7 @@ public class tablecards extends AppCompatActivity {
     }
 
     private double [][]handCalculator(){
-        double [][]chances = new double [10][3];
+        double [][]chances = new double [9][3];
         chances[0] = math.RoyalFlush(myCards);
         chances[1] = math.StraightFlush(myCards);
         chances[2] = math.FourOfKind(myCards);
@@ -54,7 +50,6 @@ public class tablecards extends AppCompatActivity {
         chances[6] = math.ThreeOfAKind(myCards);
         chances[7] = math.TwoPair(myCards);
         chances[8] = math.Pair(myCards);
-        chances[9] = math.RoyalFlush(myCards);
 
         return chances;
     }
@@ -63,7 +58,7 @@ public class tablecards extends AppCompatActivity {
         double [][]chances = handCalculator();
         double decimals = Math.pow(10,4);
 
-        for (int i=0;i<10;i++){
+        for (int i=0;i<chances.length;i++){
             pokerHands[i].setText(String.valueOf(Math.floor(chances[i][2] * 100*decimals) / decimals)+"%");
         }
     }
