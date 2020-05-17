@@ -2,24 +2,24 @@ tic
 parpool(12);
 clear; clc;
 counter = 0;
-myCards = [1];
+myCards = [];
 suits = ceil(myCards./13);
-values = myCards - 13.*(suits-1)
+values = myCards - 13.*(suits-1);
 
-if (7-length(myCards) == 7)
-    C = readmatrix('C.csv');
+if isempty(myCards)
+    AllPossibilities = readmatrix('C.csv');
 else
     C = combnk(1:52,7-length(myCards));
+    lia = ismember(C,myCards);
+    rowsDel = any(lia,2);
+    C(rowsDel,:) = [];
+    myCardsRepeat=repmat(myCards,length(C),1);
+    AllPossibilities = [myCardsRepeat C];
 end
-lia = ismember(C,myCards);
-rowsDel = any(lia,2);
-C(rowsDel,:) = [];
 
-myCardsRepeat=repmat(myCards,length(C),1);
-AllPossibilities = [myCardsRepeat C];
-
-if isempty(AllPossibilities)
+if isempty(AllPossibilities) %only on 7 cards
     denom = 1;
+    StraightFlush(myCards,counter);
     FourKind(myCards,counter);
     FullHouse(myCards,counter);
     Flush(myCards,counter);
@@ -51,7 +51,7 @@ end
 toc
 delete(gcp('nocreate'))
 
-%save('counterVec63Pair.mat','counterVec');
+save('counterVec0.mat','counterVec');
 %example = matfile('counterVec1.mat');
 % counterVec = example.counterVec;
 
@@ -67,16 +67,17 @@ function counter = StraightFlush(myCards,counter)
             suits(~suitI) = [];
             if ~isempty(typeI)
                 values = typeI - 13.*(suits-1);
+                
+                values = unique(values,'first'); %sort
                 if (values(1) == 1)
                     values = [values 14];
                 end
-                values = unique(values,'first'); %sort
                 N = 4; % Required number of consecutive numbers following a first one
                 x = diff(values)==1;
                 f = find([false,x]~=[x,false]);
                 g = find(f(2:2:end)-f(1:2:end-1)>=N,1,'first');
                 first_t = values(f(2*g-1)); % First t followed by >=N consecutive numbers
-                if (isempty(first_t))
+                if (~isempty(first_t))
                     counter = counter + 1;
                     break;
                 end
