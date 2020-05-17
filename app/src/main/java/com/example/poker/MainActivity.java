@@ -92,12 +92,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setImages(){
-        if(numberOfCards != 0) {
-            String imageString = "p" + myCards[numberOfCards - 1].substring(0, 1) + suit;
-            int resID = getResources().getIdentifier(imageString, "drawable", "com.example.poker");
+        if (myCards[numberOfCards-1] == "00"){
+            int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
             handButtons[numberOfCards].setImageResource(resID);
         }else{
-            int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
+            String imageString = "p" + myCards[numberOfCards-1].substring(0, 1) + suit;
+            int resID = getResources().getIdentifier(imageString, "drawable", "com.example.poker");
             handButtons[numberOfCards].setImageResource(resID);
         }
     }
@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 0; i < 7; i++) {
                 if (myCards[i] == "00") myCards[i - 1] = "00";
             }
-            numberOfCards-=1;
             setImages();
+            numberOfCards-=1;
         }
     }
 
