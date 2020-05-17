@@ -1,4 +1,5 @@
 package com.example.poker;
+import java.util.Arrays;
 
 public class math {
    static double factorial(int n) {
@@ -22,6 +23,12 @@ public class math {
 			arr1[i] += arr2[i];
 		}
 		return arr1;
+	}
+
+	static int hexToDec(char myChar){
+		if (myChar>= '0' && myChar <='9')
+			return myChar - '0';
+		return myChar - 'a' +10;
 	}
 
 	///		105669616	35766640	10287472	5824000	1613040	3514992	224848	247540
@@ -76,37 +83,78 @@ public class math {
 	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
    }
-   
-   public static double[] StraightFlush(String[] myCards){
 
-	   int[] cardsSuit = {0,0,0,0,0}; //0,1,2,3
-	   int cardsDeployed = myCards.length;
-	   int count=0;
-	   for (int type = '1'; type <'5'; type++){
-		   for (int i = 1; i<10; i++){
-			   count =0;
-			   for (int e = i; e<i+5; e++){
-				   for (String cards : myCards){
-					   if (cards.charAt(1) ==type && cards.charAt(0) == '1'+e){
-						   count +=1;
-					   }
-				   }
-			   }
-			   cardsSuit[count]+=1;
-		   }
-	   }
+	public static double[] StraightFlush(String[] myCards){
+		int[][] cardsInSeries = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}}; //{0, 1, 2, 3, 4, 5, 6, 7} cards in series of 5 ,6, 7
+		int[][] cardsInSeriesEdge = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}}; //{0, 1, 2, 3, 4, 5, 6, 7} cards in series of 5 ,6, 7
+		int cardsDeployed = myCards.length;
+		int count=0;
+		boolean invalidCount =false;
+		for (int type = '1'; type <'5'; type++){
+			for (int j = 5; j<=7;j++){
+				for (int i = 2; i<=14-j; i++){
+					count =0;
+					invalidCount =false;
+					for (int e = i; e<i+j; e++){
+						for (String cards : myCards){
+							if (cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == e){
+								count +=1;
+							}
+						}
+					}
 
-	   System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
-	   
-	   //Statistics
-	   int sumOfChances =0;
-	   for (int i=0;i<5;i++) {
-		   sumOfChances += cardsSuit[i]*comb(52-(6-i)-cardsDeployed,7-(5-i)-cardsDeployed);
-	   }
-	   
-		System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
+					for (String cards : myCards){
+						if ((cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == i-1) || (cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == i+j+1)){
+							invalidCount =true;
+						}
+					}
+					if(!invalidCount)
+						cardsInSeries[j-5][count]+=1;
+				}
+			}
+		}
+		System.out.println(Arrays.toString(cardsInSeries[0])  + " " + Arrays.toString(cardsInSeries[1])  + " " + Arrays.toString(cardsInSeries[2]));
+
+		for (int type = '1'; type <'5'; type++){
+			for (int j = 5; j<=7;j++){
+				count =0;
+				invalidCount =false;
+				for (int e = 1; e<=j; e++){
+					for (String cards : myCards){
+						if (cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == e){
+							count +=1;
+						}
+					}
+				}
+				for (String cards : myCards){
+					if (cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == j+1){
+						invalidCount =true;
+					}
+				}
+				if(!invalidCount)
+					cardsInSeriesEdge[j-5][count]+=1;
+			}
+		}
+		System.out.println(Arrays.toString(cardsInSeriesEdge[0])  + " " + Arrays.toString(cardsInSeriesEdge[1])  + " " + Arrays.toString(cardsInSeriesEdge[2]));
+
+
+		//Statistics
+		int sumOfChances =0;
+		for (int i=0;i<=7;i++) {
+			sumOfChances += cardsInSeries[0][i]*comb(52-5-2-cardsDeployed+i,7-5-cardsDeployed+i); //Serie of 5
+			sumOfChances += cardsInSeries[1][i]*comb(52-6-2-cardsDeployed+i,7-6-cardsDeployed+i); //Serie of 6
+			sumOfChances += cardsInSeries[2][i]*comb(52-7-2-cardsDeployed+i,7-7-cardsDeployed+i); //Serie of 7
+		}
+
+		for (int i=0;i<=7;i++) {
+			sumOfChances += cardsInSeriesEdge[0][i]*comb(52-5-1-cardsDeployed+i,7-5-cardsDeployed+i); //Serie of 5
+			sumOfChances += cardsInSeriesEdge[1][i]*comb(52-6-1-cardsDeployed+i,7-6-cardsDeployed+i); //Serie of 6
+			sumOfChances += cardsInSeriesEdge[2][i]*comb(52-7-1-cardsDeployed+i,7-7-cardsDeployed+i); //Serie of 7
+		}
+
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
-   }
+
+	}
    
    public static double[] FourOfKind(String[] myCards){
 	   
