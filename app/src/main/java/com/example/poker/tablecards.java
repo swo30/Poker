@@ -59,7 +59,8 @@ public class tablecards extends AppCompatActivity {
         double decimals = Math.pow(10,4);
 
         for (int i=0;i<chances.length;i++){
-            pokerHands[i].setText(String.valueOf(Math.floor(chances[i][2] * 100*decimals) / decimals)+"%");
+            if (Math.floor(chances[i][2]*10)>0) pokerHands[i].setText(String.valueOf(Math.floor(chances[i][2] * 100*(decimals/10))/(decimals/10))+"%");
+            else pokerHands[i].setText(String.valueOf(Math.floor(chances[i][2] * 100*decimals) / decimals)+"%");
         }
     }
 
