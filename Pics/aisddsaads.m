@@ -1,7 +1,7 @@
 clc
-% file = 'counterVec0'
+file = 'counterVec0'
 % file = 'counterVec1'
-file = 'counterVec2Pair'
+% file = 'counterVec2Pair'
 % file = 'counterVec2Singles'
 % file = 'counterVec33K'
 % file = 'counterVec3Pair'
@@ -26,5 +26,5 @@ file = 'counterVec2Pair'
 % file = 'counterVec6Singles'
 
 load(file,'-mat')
-a = 100*counterVec(5)/2118760;
+a = 100*counterVec/133784560;
 fprintf("%.5f\n",a)

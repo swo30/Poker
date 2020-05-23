@@ -17,7 +17,7 @@
 
         <TextView style="@style/textbox"
             android:id="@+id/RFChance"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:text="" />
 
     </LinearLayout>
@@ -33,10 +33,11 @@
             android:id="@+id/SFText"
             android:text="Straight Flush:" />
 
-        <TextView style="@style/textbox"
+        <TextView
             android:id="@+id/SFChance"
-            android:layout_weight="3"
-            android:text=""/>
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
     </LinearLayout>
 
 
@@ -51,11 +52,11 @@
             android:text="Four of a Kind:"
             />
 
-        <TextView style="@style/textbox"
+        <TextView
             android:id="@+id/FKChance"
-            android:layout_weight="3"
-            android:text=""
-            />
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,11 +70,11 @@
             android:text="Full House:"
             />
 
-        <TextView style="@style/textbox"
+        <TextView
             android:id="@+id/FHChance"
-            android:layout_weight="3"
-            android:text=""
-            />
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,11 +88,11 @@
             android:text="Flush:"
             />
 
-        <TextView style="@style/textbox"
+        <TextView
             android:id="@+id/FlushChance"
-            android:layout_weight="3"
-            android:text=""
-            />
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
     </LinearLayout>
 
 
@@ -105,11 +106,12 @@
             android:id="@+id/StraightText"
             android:text="Straight:"
             />
-        <TextView style="@style/textbox"
+
+        <TextView
             android:id="@+id/StraightChance"
-            android:layout_weight="3"
-            android:text=""
-            />
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
 
     </LinearLayout>
 
@@ -124,11 +126,12 @@
             android:id="@+id/TKText"
             android:text="Three of a Kind:"
             />
-        <TextView style="@style/textbox"
+
+        <TextView
             android:id="@+id/TKChance"
-            android:layout_weight="3"
-            android:text=""
-            />
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
     </LinearLayout>
 
 
@@ -143,11 +146,11 @@
             android:text="Two Pair:"
             />
 
-        <TextView style="@style/textbox"
+        <TextView
             android:id="@+id/TPChance"
-            android:layout_weight="3"
-            android:text=""
-            />
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -161,11 +164,11 @@
             android:text="One Pair:"
             />
 
-        <TextView style="@style/textbox"
+        <TextView
             android:id="@+id/OPChance"
-            android:layout_weight="3"
-            android:text=""
-            />
+            style="@style/textbox"
+            android:layout_weight="2"
+            android:text="" />
     </LinearLayout>
 
 </LinearLayout>

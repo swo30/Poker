@@ -84,13 +84,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cardsNum[i].setVisibility(View.VISIBLE);
             }
         }else{
+            resetSuitImages();
             for (int i = 1; i <= 13; i++) {
                 cardsNum[i].setVisibility(View.INVISIBLE);
             }
             setImages();
         }
     }
-
+    public void resetSuitImages(){
+        int resID;
+        resID = getResources().getIdentifier("clubimage", "drawable", "com.example.poker");
+        clubButtn.setImageResource(resID);
+        resID = getResources().getIdentifier("diamondimage", "drawable", "com.example.poker");
+        diamondButtn.setImageResource(resID);
+        resID = getResources().getIdentifier("heartimage", "drawable", "com.example.poker");
+        heartButtn.setImageResource(resID);
+        resID = getResources().getIdentifier("spadeimage", "drawable", "com.example.poker");
+        spadeButtn.setImageResource(resID);
+    }
     public void setImages(){
         if (myCards[numberOfCards-1] == "00"){
             int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
@@ -107,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DebugButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
         undoButton.setOnClickListener(this);
-
 
         clubButtn   .setOnClickListener(this);
         diamondButtn.setOnClickListener(this);
@@ -129,19 +139,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    public void undo(){
+    public void undo() {
         if (myCards[0] != "00") {
             for (int i = 0; i < 7; i++) {
                 if (myCards[i] == "00") myCards[i - 1] = "00";
             }
             setImages();
-            numberOfCards-=1;
+            numberOfCards -= 1;
         }
     }
 
 
     @Override
     public void onClick(View v) {
+        int resID;
         switch(v.getId()){
             case R.id.DebugButton:
                 //Toast.makeText(this,Integer.toString(numberOfCards),Toast.LENGTH_SHORT).show();
@@ -159,18 +170,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.club:
+                resID = getResources().getIdentifier("clubzoom", "drawable", "com.example.poker");
+                resetSuitImages();
+                clubButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 1;
                 break;
             case R.id.diamond:
+                resID = getResources().getIdentifier("diamondzoom", "drawable", "com.example.poker");
+                resetSuitImages();
+                diamondButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 2;
                 break;
             case R.id.heart:
+                resID = getResources().getIdentifier("heartzoom", "drawable", "com.example.poker");
+                resetSuitImages();
+                heartButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 3;
                 break;
             case R.id.spade:
+                resID = getResources().getIdentifier("spadezoom", "drawable", "com.example.poker");
+                resetSuitImages();
+                spadeButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 4;
                 break;
