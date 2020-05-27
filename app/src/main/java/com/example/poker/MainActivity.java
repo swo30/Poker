@@ -170,28 +170,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.club:
-                resID = getResources().getIdentifier("clubzoom", "drawable", "com.example.poker");
+                resID = getResources().getIdentifier("clubselect", "drawable", "com.example.poker");
                 resetSuitImages();
                 clubButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 1;
                 break;
             case R.id.diamond:
-                resID = getResources().getIdentifier("diamondzoom", "drawable", "com.example.poker");
+                resID = getResources().getIdentifier("diamondselect", "drawable", "com.example.poker");
                 resetSuitImages();
                 diamondButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 2;
                 break;
             case R.id.heart:
-                resID = getResources().getIdentifier("heartzoom", "drawable", "com.example.poker");
+                resID = getResources().getIdentifier("heartselect", "drawable", "com.example.poker");
                 resetSuitImages();
                 heartButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 3;
                 break;
             case R.id.spade:
-                resID = getResources().getIdentifier("spadezoom", "drawable", "com.example.poker");
+                resID = getResources().getIdentifier("spadeselect", "drawable", "com.example.poker");
                 resetSuitImages();
                 spadeButtn.setImageResource(resID);
                 numVisible(true);

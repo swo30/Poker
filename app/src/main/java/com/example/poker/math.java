@@ -160,7 +160,6 @@ public class math {
 	   
 	   int[] cardsSuit = {0,0,0,0,0}; //0,1,2,3,4
 	   int cardsDeployed = myCards.length;
-	   int count=0;
 	   int[] map = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	   
 	   for (String card: myCards){
@@ -176,8 +175,6 @@ public class math {
 	   	if(cardsSuit[4] >0)
 			return new double[] {1,1,1};
 		
-	   System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
-
 	   int sumOfChances =0;
 	   for (int i=0;i<4;i++) {
 		   sumOfChances += (cardsSuit[i])*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
@@ -327,7 +324,7 @@ public class math {
 
 	public static double[] ThreeOfAKind(String[] myCards){
 
-		int[] cardsValue = {0,0,0,0,0}; //13-CD,singles,pairs,3kind,4kind
+		int[] cardsValue = {0,0,0,0,0}; //Non-values,singles,pairs,3kind,4kind
 		int cardsDeployed = myCards.length;
 		int[] map = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 
@@ -343,13 +340,56 @@ public class math {
 		if((cardsValue[3] > 0) || (cardsValue[4] >0)) {
 			return new double[]{1, 1, 1};
 		}
+		//Stats for 3k & up but not 4k
+		//double 	sumOfChances  = 0;
+		//for (int i=0;i<3;i++) {
+		//	sumOfChances += (cardsValue[i])*comb((4-i),(3-i))*comb(52-1-(cardsDeployed+3-i),7-(cardsDeployed+3-i));//three of a kind
+		//}
+		//return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)))};
 
-		int sumOfChances = 0;
-		for (int i=0;i<3;i++) {
-			sumOfChances += (cardsValue[i])*comb((4-i),(3-i))*comb(cardsValue[0],7-(cardsDeployed+3-i))*Math.pow(4,(7-(cardsDeployed+3-i)));
+		//Stats
+		double denom = comb(52-cardsDeployed,7-cardsDeployed);
+		switch(cardsDeployed) {
+			case 7:
+				return new double[]{0, 0, 0};
+
+			case 6:
+				if  (cardsValue[1] == cardsDeployed) return new double[]{0, 0, 0};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{2.0, denom, 2.0/denom};
+				if ((cardsValue[1] == 2)&&(cardsValue[2] == 2)) return new double[]{4.0, denom, 4.0/denom};
+				if  (cardsValue[2] == 3) return new double[]{6.0,denom, 6.0/denom};
+				break;
+
+			case 5:
+				if  (cardsValue[1] == cardsDeployed) return new double[]{15.0, denom, 15.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{100.0, denom, 100.0/denom};
+				if ((cardsValue[1] == cardsDeployed-4)&&(cardsValue[2] == 2)) return new double[]{181.0, denom, 181.0/denom};
+				break;
+
+			case 4:
+				if  (cardsValue[1] == cardsDeployed) return new double[]{580.0, denom, 580.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{2416.0, denom, 2416.0/denom};
+				if ((cardsValue[1] == cardsDeployed-4)&&(cardsValue[2] == 2)) return new double[]{4096.0, denom, 4096.0/denom};
+				break;
+
+			case 3:
+				if  (cardsValue[1] == cardsDeployed) return new double[]{3186.0, denom, 3186.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{16296.0, denom, 16296.0/denom};
+				break;
+
+			case 2:
+				if  (cardsValue[1] == cardsDeployed) return new double[]{11236.0, denom, 11236.0/denom};
+				if ((cardsValue[1] == cardsDeployed-2)&&(cardsValue[2] == 1)) return new double[]{38296.0, denom, 38296.0/denom};
+				break;
+
+			case 1:
+				return new double[]{1384852.0, denom, 1384852.0/denom};
+
+			case 0:
+				return new double[]{10287472.0, denom, 10287472.0/denom};
+
 		}
-		System.out.println("sumOfChances: " + sumOfChances);
-		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/comb(52-cardsDeployed,7-cardsDeployed))};
+		return new double[]{69,69,69}; //This line will never happen
 	}
 
 	public static double[] TwoPair(String[] myCards){
@@ -413,8 +453,6 @@ public class math {
 		}
 		return new double[]{69,69,69}; //This line will never happen
 	}
-
-
 
 	public static double[] Pair(String[] myCards){
 		int cardsDeployed = myCards.length;
