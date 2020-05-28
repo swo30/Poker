@@ -186,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 resID = getResources().getIdentifier("clubselect", "drawable", "com.example.poker");
                 resetSuitImages();
                 clubButtn.setImageResource(resID);
+                clubButtn.setBackgroundColor(255);
+
                 numVisible(true);
                 suit = 1;
                 break;

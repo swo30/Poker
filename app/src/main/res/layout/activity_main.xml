@@ -1,9 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/buttons"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="portrait"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/bg">
 
     <Button
         android:id="@+id/DebugButton"
@@ -25,6 +27,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Your cards:"
+            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -37,7 +40,7 @@
         android:layout_weight="2">
 
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/hand1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +48,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/empty" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/hand2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,6 +71,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="River cards:"
+            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -83,7 +87,7 @@
 
 
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/hand3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +95,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/empty" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/hand4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +103,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/empty" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/hand5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +111,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/empty" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/hand6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,7 +119,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/empty" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/hand7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,6 +143,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Pick your cards"
+            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -152,7 +157,7 @@
         android:layout_weight="2"
         android:orientation="horizontal">
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/club"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -160,7 +165,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/clubimage" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/diamond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -168,7 +173,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/diamondimage" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/heart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -176,7 +181,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/heartimage" />
 
-        <ImageButton
+        <ImageButton style="@style/buttons"
             android:id="@+id/spade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
