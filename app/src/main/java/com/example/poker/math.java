@@ -278,49 +278,77 @@ public class math {
 	}
 
 
-	public static int[] Straight(String[] myCards, int pos, int limit, int count){
-		int[] value ={0,0,0,0,0,0};
-		int num =0;
-		if (pos == limit){
-			value[count] +=1;
-			return value;
-		}
-
-		for(int type= '1'; type<'5';type++){
-			num =0;
-			for (String cards : myCards){
-				if (cards.charAt(1) ==type && cards.charAt(0) == '0'+pos){
-					num +=1;
-				}
-			}
-			value = sum_array(value, Straight(myCards, pos+1, limit, count + num));
-		}
-		return value;
-	}
-
 	public static double[] Straight(String[] myCards){
-
-		int[] cardsSuit = {0,0,0,0,0,0}; //0,1,2,3
+		int[][] cardsInSeries = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}}; //{0, 1, 2, 3, 4, 5, 6, 7} cards in series of 5 ,6, 7
+		int[][] cardsInSeriesEdge = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}}; //{0, 1, 2, 3, 4, 5, 6, 7} cards in series of 5 ,6, 7
 		int cardsDeployed = myCards.length;
 		int count=0;
-		for (int i = 1; i<11; i++){
-			cardsSuit = sum_array(cardsSuit, Straight(myCards, i, i+5,0));
-		}
+		boolean invalidCount =false;
+		for (int type = '1'; type <'5'; type++){
+			for (int j = 5; j<=7;j++){
+				for (int i = 2; i<=15-j; i++){
+					count =0;
+					invalidCount =false;
+					for (int e = i; e<i+j; e++){
+						for (String cards : myCards){
+							if (hexToDec(cards.charAt(0)) == e){
+								count +=1;
+							}
+						}
+					}
 
-		System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3] + " " + cardsSuit[4] + " " + cardsSuit[5]);
+					for (String cards : myCards){
+						if ((hexToDec(cards.charAt(0)) == i-1) || (hexToDec(cards.charAt(0)) == i+j+1)){
+							invalidCount =true;
+						}
+					}
+					if(!invalidCount)
+						cardsInSeries[j-5][count]+=1;
+				}
+			}
+		}
+		System.out.println(Arrays.toString(cardsInSeries[0])  + " " + Arrays.toString(cardsInSeries[1])  + " " + Arrays.toString(cardsInSeries[2]));
+
+		for (int type = '1'; type <'5'; type++){
+			for (int j = 5; j<=7;j++){
+				count =0;
+				invalidCount =false;
+				for (int e = 1; e<=j; e++){
+					for (String cards : myCards){
+						if (hexToDec(cards.charAt(0)) == e){
+							count +=1;
+						}
+					}
+				}
+				for (String cards : myCards){
+					if (hexToDec(cards.charAt(0)) == j+1){
+						invalidCount =true;
+					}
+				}
+				if(!invalidCount)
+					cardsInSeriesEdge[j-5][count]+=1;
+			}
+		}
+		System.out.println(Arrays.toString(cardsInSeriesEdge[0])  + " " + Arrays.toString(cardsInSeriesEdge[1])  + " " + Arrays.toString(cardsInSeriesEdge[2]));
+
 
 		//Statistics
 		int sumOfChances =0;
-		for (int i=0;i<5;i++) {
-			//sumOfChances += cardsSuit[i]*comb(52-(9-i)-cardsDeployed,7-(5-i)-cardsDeployed); //Not the good way
-			sumOfChances += cardsSuit[i]*comb(52-(5-i)-cardsDeployed,7-(5-i)-cardsDeployed); //The way we think maybe
+		for (int i=0;i<=7;i++) {
+			sumOfChances += cardsInSeries[0][i]*comb(52-5-2-cardsDeployed+i,7-5-cardsDeployed+i); //Serie of 5
+			sumOfChances += cardsInSeries[1][i]*comb(52-6-2-cardsDeployed+i,7-6-cardsDeployed+i); //Serie of 6
+			sumOfChances += cardsInSeries[2][i]*comb(52-7-2-cardsDeployed+i,7-7-cardsDeployed+i); //Serie of 7
 		}
 
-		System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));
+		for (int i=0;i<=7;i++) {
+			sumOfChances += cardsInSeriesEdge[0][i]*comb(52-5-1-cardsDeployed+i,7-5-cardsDeployed+i); //Serie of 5
+			sumOfChances += cardsInSeriesEdge[1][i]*comb(52-6-1-cardsDeployed+i,7-6-cardsDeployed+i); //Serie of 6
+			sumOfChances += cardsInSeriesEdge[2][i]*comb(52-7-1-cardsDeployed+i,7-7-cardsDeployed+i); //Serie of 7
+		}
+
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
 
 	}
-
 
 	public static double[] ThreeOfAKind(String[] myCards){
 

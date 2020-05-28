@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button DebugButton;
     Button nextButton;
     Button undoButton;
+    Button resetButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DebugButton  = findViewById(R.id.DebugButton);
         nextButton   = findViewById(R.id.nextButton);
         undoButton   = findViewById(R.id.undoButton);
+        resetButton   = findViewById(R.id.resetButton);
 
         clubButtn    = findViewById(R.id.club);
         diamondButtn = findViewById(R.id.diamond);
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DebugButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
         undoButton.setOnClickListener(this);
+        resetButton.setOnClickListener(this);
 
         clubButtn   .setOnClickListener(this);
         diamondButtn.setOnClickListener(this);
@@ -141,14 +144,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void undo() {
         if (myCards[0] != "00") {
-            for (int i = 0; i < 7; i++) {
-                if (myCards[i] == "00") myCards[i - 1] = "00";
-            }
-            setImages();
-            numberOfCards -= 1;
+        myCards[numberOfCards - 1] = "00";
+        setImages();
+        numberOfCards -= 1;
         }
     }
 
+    public void reset() {
+        int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
+        for (int i = 0; i < 7; i++) {
+            myCards[i] = "00";
+            handButtons[i+1].setImageResource(resID);
+        }
+        numberOfCards = 0;
+    }
 
     @Override
     public void onClick(View v) {
@@ -167,6 +176,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.undoButton:
                 undo();
+                break;
+
+            case R.id.resetButton:
+                reset();
                 break;
 
             case R.id.club:

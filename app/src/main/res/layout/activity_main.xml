@@ -343,13 +343,23 @@
         android:layout_weight="0.5">
 
         <Button
+            android:id="@+id/resetButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:enabled="true"
+            android:text="Reset"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/nextButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:enabled="true"
             android:text="Calculate"
-            android:textSize="20sp"
-            android:layout_weight="1"
+            android:textSize="18sp"
+            android:layout_weight="2"
             android:textStyle="bold" />
 
         <Button
@@ -359,8 +369,10 @@
             android:layout_weight="3"
             android:enabled="true"
             android:text="Undo"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
+
+
     </LinearLayout>
 
 </LinearLayout>
