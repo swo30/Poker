@@ -2,9 +2,9 @@ tic
 parpool(12);
 clear; clc;
 counter = 0;
-myCards = [15 49];
-suits = ceil(myCards./13)
-values = myCards - 13.*(suits-1)
+myCards = [1 2];
+suits = ceil(myCards./13);
+values = myCards - 13.*(suits-1);
 
 if isempty(myCards)
     AllPossibilities = readmatrix('C.csv');
@@ -43,11 +43,8 @@ else
 end
 
 counterVec = [cnt1,cnt2,cnt3,cnt4,cnt5,cnt6,cnt7,cnt8];
-percentages = zeros(1,length(counterVec));
-for i=1:length(counterVec)
-    percentages(i) = 100.*counterVec(i)./denom;
-    fprintf("%.4f%%\n", percentages(i))
-end
+printCounterVec(counterVec,denom)
+
 toc
 delete(gcp('nocreate'))
 
@@ -207,4 +204,15 @@ function counter = Pair(myCards,counter)
     if ((cardsValue(3)>0)||(cardsValue(4)>0)||(cardsValue(5)>0))
         counter = counter + 1;
     end
+end
+
+function printCounterVec(counterVec,denom)
+    fprintf("Straight Flush: %.4f%%\n", 100.*counterVec(8)./denom)
+    fprintf("Four of a kind: %.4f%%\n", 100.*counterVec(7)./denom)
+    fprintf("Full House:     %.4f%%\n", 100.*counterVec(6)./denom)
+    fprintf("Flush:          %.4f%%\n", 100.*counterVec(5)./denom)
+    fprintf("Straight:       %.4f%%\n", 100.*counterVec(4)./denom)
+    fprintf("3 of a kind:    %.4f%%\n", 100.*counterVec(3)./denom)
+    fprintf("2 Pairs:        %.4f%%\n", 100.*counterVec(2)./denom)
+    fprintf("Pair:           %.4f%%\n", 100.*counterVec(1)./denom)
 end
