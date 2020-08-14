@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton handButtons[] = new ImageButton[8];
 
     Button cardsNum[] = new Button[14];
-    String myCards[] = new String[7]; //7 hex number representing the cards
+    String myCards[] = new String[7]; //7 2-digit hex numbers representing the cards
     // 1 -> K & clubs,diamond,heart,spade
     // ie. A1 = 10 of clubs
     // ie. 14 = Ace of spade
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spadeButtn.setImageResource(resID);
     }
     public void setImages(){
-        if (myCards[numberOfCards-1] == "00"){
+        if (myCards[numberOfCards - 1].equals("00")){
             int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
             handButtons[numberOfCards].setImageResource(resID);
         }else{
@@ -114,6 +114,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handButtons[numberOfCards].setImageResource(resID);
         }
     }
+    public void resetCardsImages(int card){
+        int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
+        for (int i = 0; i < 7; i++) {
+            handButtons[i+1].setImageResource(resID);
+        }
+        selectEmpty(card);
+    }
+
+    public void selectEmpty(int card){
+        setImages();
+        int resID = getResources().getIdentifier("emptyselect", "drawable", "com.example.poker");
+        handButtons[card+1].setImageResource(resID);
+    }
+
+
 
     public void addListeners() {
 
@@ -127,26 +142,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         heartButtn  .setOnClickListener(this);
         spadeButtn  .setOnClickListener(this);
 
+        for (int i = 1; i <= 7; i++) {
+            handButtons[i].setOnClickListener(this);
+        }
         for (int i = 1; i <= 13; i++) {
             cardsNum[i].setOnClickListener(this);
         }
     }
 
-    public void goToTableCards(){
-        Intent intent = new Intent(this, tablecards.class);
-        String myCardsStr = "";
-        for (int i=0;i<7;i++){
-            if (myCards[i]!="00") myCardsStr += myCards[i];
-        }
-        intent.putExtra("myCardsStr",myCardsStr);
-        startActivity(intent);
-    }
-
     public void undo() {
         if (myCards[0] != "00") {
-        myCards[numberOfCards - 1] = "00";
-        setImages();
-        numberOfCards -= 1;
+            myCards[numberOfCards - 1] = "00";
+            setImages();
+            numberOfCards -= 1;
         }
     }
 
@@ -157,6 +165,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handButtons[i+1].setImageResource(resID);
         }
         numberOfCards = 0;
+    }
+
+    public void goToTableCards(){
+        Intent intent = new Intent(this, tablecards.class);
+        String myCardsStr = "";
+        for (int i=0;i<7;i++){
+            if (myCards[i]!="00") myCardsStr += myCards[i];
+        }
+        intent.putExtra("myCardsStr",myCardsStr);
+        startActivity(intent);
     }
 
     @Override
@@ -186,8 +204,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 resID = getResources().getIdentifier("clubselect", "drawable", "com.example.poker");
                 resetSuitImages();
                 clubButtn.setImageResource(resID);
-                clubButtn.setBackgroundColor(255);
-
                 numVisible(true);
                 suit = 1;
                 break;
@@ -277,6 +293,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 myCards[numberOfCards] = Integer.toHexString(13) + suit;
                 numberOfCards++;
                 numVisible(false);
+                break;
+
+            case R.id.hand1:
+                numberOfCards = 0;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand2:
+                numberOfCards = 1;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand3:
+                numberOfCards = 2;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand4:
+                numberOfCards = 3;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand5:
+                numberOfCards = 4;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand6:
+                numberOfCards = 5;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand7:
+                numberOfCards = 6;
+//                resetCardsImages(numberOfCards);
                 break;
         }
     }
