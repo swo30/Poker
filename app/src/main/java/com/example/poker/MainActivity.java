@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    int counter = 0;
+    int numberOfCards = 0;
     int suit = 0;
 
     ImageButton clubButtn;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton handButtons[] = new ImageButton[8];
 
     Button cardsNum[] = new Button[14];
-    String myCards[] = new String[7]; //7 hex number representing the cards
+    String myCards[] = new String[7]; //7 2-digit hex numbers representing the cards
     // 1 -> K & clubs,diamond,heart,spade
     // ie. A1 = 10 of clubs
     // ie. 14 = Ace of spade
@@ -31,20 +31,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //The debugger
     Button DebugButton;
     Button nextButton;
+    Button undoButton;
+    Button resetButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DebugButton  = findViewById(R.id.DebugButton);
+        nextButton   = findViewById(R.id.nextButton);
+        undoButton   = findViewById(R.id.undoButton);
+        resetButton   = findViewById(R.id.resetButton);
 
-        DebugButton = findViewById(R.id.DebugButton);
-        nextButton = findViewById(R.id.nextButton);
-
-
-        clubButtn = findViewById(R.id.club);
+        clubButtn    = findViewById(R.id.club);
         diamondButtn = findViewById(R.id.diamond);
-        heartButtn = findViewById(R.id.heart);
-        spadeButtn = findViewById(R.id.spade);
+        heartButtn   = findViewById(R.id.heart);
+        spadeButtn   = findViewById(R.id.spade);
 
         for (int i=0; i<7; i++){
             myCards[i] = "00";
@@ -84,34 +86,85 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cardsNum[i].setVisibility(View.VISIBLE);
             }
         }else{
+            resetSuitImages();
             for (int i = 1; i <= 13; i++) {
                 cardsNum[i].setVisibility(View.INVISIBLE);
             }
             setImages();
-            //if (counter >=2) nextButton.setEnabled(true);
         }
     }
-
-    public void setImages(){
-        String imageString = "p"+ myCards[counter-1].substring(0,1) + suit;
-        int resID = getResources().getIdentifier(imageString, "drawable", "com.example.poker");
-        handButtons[counter].setImageResource(resID);
+    public void resetSuitImages(){
+        int resID;
+        resID = getResources().getIdentifier("clubimage", "drawable", "com.example.poker");
+        clubButtn.setImageResource(resID);
+        resID = getResources().getIdentifier("diamondimage", "drawable", "com.example.poker");
+        diamondButtn.setImageResource(resID);
+        resID = getResources().getIdentifier("heartimage", "drawable", "com.example.poker");
+        heartButtn.setImageResource(resID);
+        resID = getResources().getIdentifier("spadeimage", "drawable", "com.example.poker");
+        spadeButtn.setImageResource(resID);
     }
+    public void setImages(){
+        if (myCards[numberOfCards - 1].equals("00")){
+            int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
+            handButtons[numberOfCards].setImageResource(resID);
+        }else{
+            String imageString = "p" + myCards[numberOfCards-1].substring(0, 1) + suit;
+            int resID = getResources().getIdentifier(imageString, "drawable", "com.example.poker");
+            handButtons[numberOfCards].setImageResource(resID);
+        }
+    }
+    public void resetCardsImages(int card){
+        int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
+        for (int i = 0; i < 7; i++) {
+            handButtons[i+1].setImageResource(resID);
+        }
+        selectEmpty(card);
+    }
+
+    public void selectEmpty(int card){
+        setImages();
+        int resID = getResources().getIdentifier("emptyselect", "drawable", "com.example.poker");
+        handButtons[card+1].setImageResource(resID);
+    }
+
+
 
     public void addListeners() {
 
         DebugButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-
+        undoButton.setOnClickListener(this);
+        resetButton.setOnClickListener(this);
 
         clubButtn   .setOnClickListener(this);
         diamondButtn.setOnClickListener(this);
         heartButtn  .setOnClickListener(this);
         spadeButtn  .setOnClickListener(this);
 
+        for (int i = 1; i <= 7; i++) {
+            handButtons[i].setOnClickListener(this);
+        }
         for (int i = 1; i <= 13; i++) {
             cardsNum[i].setOnClickListener(this);
         }
+    }
+
+    public void undo() {
+        if (myCards[0] != "00") {
+            myCards[numberOfCards - 1] = "00";
+            setImages();
+            numberOfCards -= 1;
+        }
+    }
+
+    public void reset() {
+        int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
+        for (int i = 0; i < 7; i++) {
+            myCards[i] = "00";
+            handButtons[i+1].setImageResource(resID);
+        }
+        numberOfCards = 0;
     }
 
     public void goToTableCards(){
@@ -122,120 +175,153 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         intent.putExtra("myCardsStr",myCardsStr);
         startActivity(intent);
-
     }
 
     @Override
     public void onClick(View v) {
+        int resID;
         switch(v.getId()){
             case R.id.DebugButton:
-                Toast.makeText(this,Integer.toString(counter),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,Integer.toString(numberOfCards),Toast.LENGTH_SHORT).show();
                 for (int i=0;i<7;i++) {
                     System.out.print(myCards[i]);
                     System.out.print(" ");
                 }
                 break;
             case R.id.nextButton:
-                //for (int i=0;i<7;i++) {
-                    //System.out.print(myCards[i]);
-                    //System.out.print(" ");
-                //}
                 goToTableCards();
                 break;
+
+            case R.id.undoButton:
+                undo();
+                break;
+
+            case R.id.resetButton:
+                reset();
+                break;
+
             case R.id.club:
+                resID = getResources().getIdentifier("clubselect", "drawable", "com.example.poker");
+                resetSuitImages();
+                clubButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 1;
                 break;
             case R.id.diamond:
+                resID = getResources().getIdentifier("diamondselect", "drawable", "com.example.poker");
+                resetSuitImages();
+                diamondButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 2;
                 break;
             case R.id.heart:
+                resID = getResources().getIdentifier("heartselect", "drawable", "com.example.poker");
+                resetSuitImages();
+                heartButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 3;
                 break;
             case R.id.spade:
+                resID = getResources().getIdentifier("spadeselect", "drawable", "com.example.poker");
+                resetSuitImages();
+                spadeButtn.setImageResource(resID);
                 numVisible(true);
                 suit = 4;
                 break;
 
             case R.id.cardA:
-                myCards[counter] = Integer.toHexString(1) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(1) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card2:
-                myCards[counter] = Integer.toHexString(2) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(2) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card3:
-                myCards[counter] = Integer.toHexString(3) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(3) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card4:
-                myCards[counter] = Integer.toHexString(4) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(4) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card5:
-                myCards[counter] = Integer.toHexString(5) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(5) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card6:
-                myCards[counter] = Integer.toHexString(6) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(6) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card7:
-                myCards[counter] = Integer.toHexString(7) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(7) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card8:
-                myCards[counter] = Integer.toHexString(8) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(8) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card9:
-                myCards[counter] = Integer.toHexString(9) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(9) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.card10:
-                myCards[counter] = Integer.toHexString(10) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(10) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.cardJ:
-                myCards[counter] = Integer.toHexString(11) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(11) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.cardQ:
-                myCards[counter] = Integer.toHexString(12) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(12) + suit;
+                numberOfCards++;
                 numVisible(false);
                 break;
             case R.id.cardK:
-                myCards[counter] = Integer.toHexString(13) + suit;
-                Toast.makeText(this,myCards[counter],Toast.LENGTH_SHORT).show();
-                counter++;
+                myCards[numberOfCards] = Integer.toHexString(13) + suit;
+                numberOfCards++;
                 numVisible(false);
+                break;
+
+            case R.id.hand1:
+                numberOfCards = 0;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand2:
+                numberOfCards = 1;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand3:
+                numberOfCards = 2;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand4:
+                numberOfCards = 3;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand5:
+                numberOfCards = 4;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand6:
+                numberOfCards = 5;
+//                resetCardsImages(numberOfCards);
+                break;
+            case R.id.hand7:
+                numberOfCards = 6;
+//                resetCardsImages(numberOfCards);
                 break;
         }
     }
