@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class tablecards extends AppCompatActivity{
@@ -48,6 +49,7 @@ public class tablecards extends AppCompatActivity{
         myCards = splitToNChar(myCardsStr, 2);
 
         updateText();
+        onPause();
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -62,27 +64,47 @@ public class tablecards extends AppCompatActivity{
 
     }
 
-
     public double[] Straight(String[] myCards)  {
-        ArrayList <String[]> list;
-
+        Arrays.sort(myCards, new Comparator<String>() {
+            @Override
+            public int compare(String str1, String str2) {
+                Integer int1 = Integer.parseInt(str1,16);
+                Integer int2 = Integer.parseInt(str2,16);
+                return int1.compareTo(int2);
+            }
+        });
+        if (myCards.length == 0) {
+            return new double[] {0.048243,0.048243,0.048243};
+        }
+        ArrayList <int[]> list;
         try {
-            InputStream input = getAssets().open("straightMatrix.csv");
+            InputStream input = getAssets().open("hexStraight.csv");
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             String line;
             int count = 0;
             int cardsDeployed = myCards.length;
             int sumOfChances = 0;
+            Boolean result;
             int chunk_size = 6454272/12; // 537856
             for(int chunk=1; chunk<=12;chunk++){
                 list = new ArrayList<>();
                 count = 0;
                 while (count < chunk_size){
                     line = reader.readLine();
-                    list.add(line.split(","));
+                    list.add(methodasd(myCards));
                     count++;
                 }
-                sumOfChances += math.Straight(myCards, list);
+//                sumOfChances += math.Straight(myCards, list);
+                for (int[] card : list) {
+//                    System.out.println(Arrays.toString(card));
+                    result = math.checkCard(myCards, card);
+                    if (result == null) {
+                        break;
+                    } else {
+                        if (result)
+                            sumOfChances++;
+                    }
+                }
             }
             return new double[] {sumOfChances,math.comb(52-cardsDeployed,7-cardsDeployed),((sumOfChances)/math.comb(52-cardsDeployed,7-cardsDeployed))};
         }
@@ -91,6 +113,14 @@ public class tablecards extends AppCompatActivity{
             System.out.println(e);
             return new double[] {0,0,0};
         }
+    }
+
+    private static int[] methodasd(String[] cards) {
+        int[] newint = new int[cards.length];
+        for(int i =0; i<cards.length; i++) {
+            newint[i] = Integer.parseInt(cards[i]);
+        }
+        return newint;
     }
 
     private double [][]handCalculator()  {

@@ -64,7 +64,28 @@ public class math {
 	///		105669616	35766640	10287472	5824000	1613040	3514992	224848	247540
 	///		52 choose 7 (133784560)
 
-   
+	private static Boolean checkCard(int[] myCards, int[] card) {
+		if (myCards.length == 0)
+			return true;
+		if (card.length == 0 && myCards.length != 0)
+			return false;
+		int myCardFirstCardValue = myCards[0];
+		int straightFirstCardValue = card[0];
+		if (myCardFirstCardValue < straightFirstCardValue)
+			return null;
+		if (myCardFirstCardValue > straightFirstCardValue) {
+			Boolean result = checkCard(myCards, Arrays.copyOfRange(card, 1, card.length));
+			return result == null ? false : result;
+		}
+
+		if (myCardFirstCardValue == straightFirstCardValue) {
+			return checkCard(Arrays.copyOfRange(myCards, 1, myCards.length), Arrays.copyOfRange(card, 1, card.length));
+		}
+		System.out.println("ERRROR");
+		return false;
+	}
+
+
    public static void main(String args[]) {
 	  String[] myCards = {"d1", "d2", "d3"};
 	  RoyalFlush(myCards);
