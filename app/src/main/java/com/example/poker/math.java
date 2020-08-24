@@ -64,7 +64,7 @@ public class math {
 	///		105669616	35766640	10287472	5824000	1613040	3514992	224848	247540
 	///		52 choose 7 (133784560)
 
-	private static Boolean checkCard(int[] myCards, int[] card) {
+	public static Boolean checkCard(int[] myCards, int[] card) {
 		if (myCards.length == 0)
 			return true;
 		if (card.length == 0 && myCards.length != 0)
@@ -85,22 +85,9 @@ public class math {
 		return false;
 	}
 
-
-   public static void main(String args[]) {
-	  String[] myCards = {"d1", "d2", "d3"};
-	  RoyalFlush(myCards);
-	  StraightFlush(myCards);
-	  FourOfKind(myCards);
-	   Flush(myCards);
-	  ThreeOfAKind(myCards);
-	  TwoPair(myCards);
-
-   }
-   
    public static double[] RoyalFlush(String[] myCards){
 
 	   int cardsDeployed = myCards.length;
-	   System.out.println("cardsDeployed: "+cardsDeployed);
 	   int count;
 	   int[] cardsSuit = {0,0,0,0,0}; //13-CD,singles,pairs,3kind,4kind
 	   
@@ -114,7 +101,6 @@ public class math {
 			if (count != -1)
 				cardsSuit[count] +=1;
 		}
-		System.out.println(cardsSuit[0]  + " " + cardsSuit[1]  + " " + cardsSuit[2]  + " " + cardsSuit[3]);
 		if (cardsSuit[4] == 1) return new double[]{1,1,1};
 
 	   // Calculate Statistics:
@@ -155,7 +141,7 @@ public class math {
 					}
 
 					for (String cards : myCards){
-						if ((cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == i-1) || (cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == i+j+1)){
+						if ((cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == i-1) || (cards.charAt(1) ==type && (hexToDec(cards.charAt(0)) == i+j || (hexToDec(cards.charAt(0)) == 1 && i+j == 14)))){
 							invalidCount =true;
 						}
 					}
@@ -186,8 +172,26 @@ public class math {
 					cardsInSeriesEdge[j-5][count]+=1;
 			}
 		}
-		System.out.println(Arrays.toString(cardsInSeriesEdge[0])  + " " + Arrays.toString(cardsInSeriesEdge[1])  + " " + Arrays.toString(cardsInSeriesEdge[2]));
-
+		for (int type = '1'; type <'5'; type++){
+			for (int j = 5; j<=7;j++){
+				count =0;
+				invalidCount =false;
+				for (int e = 14-j+1; e<=14; e++){
+					for (String cards : myCards){
+						if (cards.charAt(1) ==type && (hexToDec(cards.charAt(0)) == e || (hexToDec(cards.charAt(0)) == 1 && e == 14)))  {
+							count +=1;
+						}
+					}
+				}
+				for (String cards : myCards){
+					if (cards.charAt(1) ==type && hexToDec(cards.charAt(0)) == 14-j){
+						invalidCount =true;
+					}
+				}
+				if(!invalidCount)
+					cardsInSeriesEdge[j-5][count]+=1;
+			}
+		}
 
 		//Statistics
 		int sumOfChances =0;
@@ -231,7 +235,6 @@ public class math {
 		   sumOfChances += (cardsSuit[i])*comb(52-(4-i)-cardsDeployed,7-(4-i)-cardsDeployed);
 	   }
 	   
-	   System.out.println("Total Chances " + sumOfChances + " on " + comb(52-cardsDeployed,7-cardsDeployed) + " = " + (sumOfChances/comb(52-cardsDeployed,7-cardsDeployed)));   
 	   return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
    }
 
@@ -315,7 +318,6 @@ public class math {
 		for (int i=0; i<5; i++){
 			if (cardsSuit[i] >=5) return new double[] {1,1,1};
 		}
-		System.out.println("cardsSuit:" + cardsSuit[1] + cardsSuit[2] + cardsSuit[3] + cardsSuit[4]);
 		double sumOfChances = 0;
 		int cardsDeployed = myCards.length;
 
@@ -345,7 +347,6 @@ public class math {
 			}
 
 			if(cnt==cardsInt.length){
-				System.out.println("");
 				sumOfChance++;
 			}
 		}
@@ -502,5 +503,4 @@ public class math {
 		double sumOfChances = comb(13-cardsDeployed,7-cardsDeployed)*Math.pow(4,7-cardsDeployed);
 		return new double[] {sumOfChances,comb(52-cardsDeployed,7-cardsDeployed),1-(sumOfChances/comb(52-cardsDeployed,7-cardsDeployed))};
 	}
-
 }

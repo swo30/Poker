@@ -3,16 +3,21 @@ package com.example.poker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int numberOfCards = 0;
     int suit = 0;
+    int selectedCard = -1;
+    Drawable selectedCardLayer = null;
 
     ImageButton clubButtn;
     ImageButton diamondButtn;
@@ -31,61 +36,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //The debugger
     Button DebugButton;
     Button nextButton;
-    Button undoButton;
+    Button deleteButton;
     Button resetButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DebugButton  = findViewById(R.id.DebugButton);
-        nextButton   = findViewById(R.id.nextButton);
-        undoButton   = findViewById(R.id.undoButton);
-        resetButton   = findViewById(R.id.resetButton);
+        DebugButton = findViewById(R.id.DebugButton);
+        nextButton = findViewById(R.id.nextButton);
+        deleteButton = findViewById(R.id.deleteButton);
+        resetButton = findViewById(R.id.resetButton);
 
-        clubButtn    = findViewById(R.id.club);
+        clubButtn = findViewById(R.id.club);
         diamondButtn = findViewById(R.id.diamond);
-        heartButtn   = findViewById(R.id.heart);
-        spadeButtn   = findViewById(R.id.spade);
+        heartButtn = findViewById(R.id.heart);
+        spadeButtn = findViewById(R.id.spade);
 
-        for (int i=0; i<7; i++){
+        for (int i = 0; i < 7; i++) {
             myCards[i] = "00";
         }
 
 
-        cardsNum[0]  = null;
-        cardsNum[1]  = findViewById(R.id.cardA);
-        cardsNum[2]  = findViewById(R.id.card2);
-        cardsNum[3]  = findViewById(R.id.card3);
-        cardsNum[4]  = findViewById(R.id.card4);
-        cardsNum[5]  = findViewById(R.id.card5);
-        cardsNum[6]  = findViewById(R.id.card6);
-        cardsNum[7]  = findViewById(R.id.card7);
-        cardsNum[8]  = findViewById(R.id.card8);
-        cardsNum[9]  = findViewById(R.id.card9);
+        cardsNum[0] = null;
+        cardsNum[1] = findViewById(R.id.cardA);
+        cardsNum[2] = findViewById(R.id.card2);
+        cardsNum[3] = findViewById(R.id.card3);
+        cardsNum[4] = findViewById(R.id.card4);
+        cardsNum[5] = findViewById(R.id.card5);
+        cardsNum[6] = findViewById(R.id.card6);
+        cardsNum[7] = findViewById(R.id.card7);
+        cardsNum[8] = findViewById(R.id.card8);
+        cardsNum[9] = findViewById(R.id.card9);
         cardsNum[10] = findViewById(R.id.card10);
         cardsNum[11] = findViewById(R.id.cardJ);
         cardsNum[12] = findViewById(R.id.cardQ);
         cardsNum[13] = findViewById(R.id.cardK);
 
-        handButtons[0]  = null;
-        handButtons[1]  = findViewById(R.id.hand1);
-        handButtons[2]  = findViewById(R.id.hand2);
-        handButtons[3]  = findViewById(R.id.hand3);
-        handButtons[4]  = findViewById(R.id.hand4);
-        handButtons[5]  = findViewById(R.id.hand5);
-        handButtons[6]  = findViewById(R.id.hand6);
-        handButtons[7]  = findViewById(R.id.hand7);
+        handButtons[0] = null;
+        handButtons[1] = findViewById(R.id.hand1);
+        handButtons[2] = findViewById(R.id.hand2);
+        handButtons[3] = findViewById(R.id.hand3);
+        handButtons[4] = findViewById(R.id.hand4);
+        handButtons[5] = findViewById(R.id.hand5);
+        handButtons[6] = findViewById(R.id.hand6);
+        handButtons[7] = findViewById(R.id.hand7);
 
         addListeners();
     }
 
     public void numVisible(boolean visible) {
-        if (visible){
+        if (visible) {
             for (int i = 1; i <= 13; i++) {
                 cardsNum[i].setVisibility(View.VISIBLE);
             }
-        }else{
+        } else {
             resetSuitImages();
             for (int i = 1; i <= 13; i++) {
                 cardsNum[i].setVisibility(View.INVISIBLE);
@@ -93,7 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setImages();
         }
     }
-    public void resetSuitImages(){
+
+    public void resetSuitImages() {
         int resID;
         resID = getResources().getIdentifier("clubimage", "drawable", "com.example.poker");
         clubButtn.setImageResource(resID);
@@ -104,43 +111,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resID = getResources().getIdentifier("spadeimage", "drawable", "com.example.poker");
         spadeButtn.setImageResource(resID);
     }
-    public void setImages(){
-        if (myCards[numberOfCards - 1].equals("00")){
-            int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
-            handButtons[numberOfCards].setImageResource(resID);
-        }else{
-            String imageString = "p" + myCards[numberOfCards-1].substring(0, 1) + suit;
-            int resID = getResources().getIdentifier(imageString, "drawable", "com.example.poker");
-            handButtons[numberOfCards].setImageResource(resID);
+
+    public void setImages() {
+        if (myCards[numberOfCards - 1].equals("00")) {
+            Drawable[] layers = new Drawable[1];
+            layers[0] = getResources().getDrawable(R.drawable.clubimage);
+            LayerDrawable layerDraw = new LayerDrawable(layers);
+            handButtons[numberOfCards].setImageDrawable(layerDraw);
+        } else {
+            Drawable[] layers = new Drawable[1];
+            String imageString = "p" + myCards[numberOfCards - 1].substring(0, 1) + suit;
+            layers[0] = getResources().getDrawable(getResources().getIdentifier(imageString, "drawable", "com.example.poker"));
+            LayerDrawable layerDraw = new LayerDrawable(layers);
+            handButtons[numberOfCards].setImageDrawable(layerDraw);
         }
     }
-    public void resetCardsImages(int card){
-        int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
-        for (int i = 0; i < 7; i++) {
-            handButtons[i+1].setImageResource(resID);
+
+    public void select(int card) {
+        if (selectedCard != -1) {
+            Drawable[] layers = new Drawable[1];
+            layers[0] = selectedCardLayer;
+            LayerDrawable layerDraw = new LayerDrawable(layers);
+            handButtons[selectedCard + 1].setImageDrawable(layerDraw);
+
         }
-        selectEmpty(card);
-    }
+        selectedCard = card;
+        Drawable[] layers = new Drawable[2];
+        selectedCardLayer = handButtons[card + 1].getDrawable();
+        layers[0] = selectedCardLayer;
+        layers[1] = getResources().getDrawable(R.drawable.select);
+        LayerDrawable layerDraw = new LayerDrawable(layers);
+        handButtons[card + 1].setImageDrawable(layerDraw);
 
-    public void selectEmpty(int card){
-        setImages();
-        int resID = getResources().getIdentifier("emptyselect", "drawable", "com.example.poker");
-        handButtons[card+1].setImageResource(resID);
-    }
 
+    }
 
 
     public void addListeners() {
 
         DebugButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-        undoButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
 
-        clubButtn   .setOnClickListener(this);
+        clubButtn.setOnClickListener(this);
         diamondButtn.setOnClickListener(this);
-        heartButtn  .setOnClickListener(this);
-        spadeButtn  .setOnClickListener(this);
+        heartButtn.setOnClickListener(this);
+        spadeButtn.setOnClickListener(this);
 
         for (int i = 1; i <= 7; i++) {
             handButtons[i].setOnClickListener(this);
@@ -150,10 +167,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void undo() {
-        if (myCards[0] != "00") {
+    public void delete() {
+        if (numberOfCards > 0) {
+            Drawable[] layers = new Drawable[1];
+            layers[0] = getResources().getDrawable(R.drawable.empty);
+            LayerDrawable layerDraw = new LayerDrawable(layers);
+            handButtons[numberOfCards].setImageDrawable(layerDraw);
             myCards[numberOfCards - 1] = "00";
-            setImages();
             numberOfCards -= 1;
         }
     }
@@ -162,28 +182,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int resID = getResources().getIdentifier("empty", "drawable", "com.example.poker");
         for (int i = 0; i < 7; i++) {
             myCards[i] = "00";
-            handButtons[i+1].setImageResource(resID);
+            handButtons[i + 1].setImageResource(resID);
         }
         numberOfCards = 0;
     }
 
-    public void goToTableCards(){
+    public void goToTableCards() {
         Intent intent = new Intent(this, tablecards.class);
         String myCardsStr = "";
-        for (int i=0;i<7;i++){
-            if (myCards[i]!="00") myCardsStr += myCards[i];
+        for (int i = 0; i < 7; i++) {
+            if (myCards[i] != "00") myCardsStr += myCards[i];
         }
-        intent.putExtra("myCardsStr",myCardsStr);
+        intent.putExtra("myCardsStr", myCardsStr);
         startActivity(intent);
+    }
+
+    public void addCard(int i) {
+        if (numberOfCards >= myCards.length)
+            numberOfCards = myCards.length - 1;
+
+        myCards[numberOfCards] = Integer.toHexString(i) + suit;
+        numberOfCards++;
+        numVisible(false);
+        selectedCard = -1; // removes selected
     }
 
     @Override
     public void onClick(View v) {
         int resID;
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.DebugButton:
                 //Toast.makeText(this,Integer.toString(numberOfCards),Toast.LENGTH_SHORT).show();
-                for (int i=0;i<7;i++) {
+                for (int i = 0; i < 7; i++) {
                     System.out.print(myCards[i]);
                     System.out.print(" ");
                 }
@@ -192,8 +222,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 goToTableCards();
                 break;
 
-            case R.id.undoButton:
-                undo();
+            case R.id.deleteButton:
+                delete();
                 break;
 
             case R.id.resetButton:
@@ -230,98 +260,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.cardA:
-                myCards[numberOfCards] = Integer.toHexString(1) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(1);
                 break;
             case R.id.card2:
-                myCards[numberOfCards] = Integer.toHexString(2) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(2);
                 break;
             case R.id.card3:
-                myCards[numberOfCards] = Integer.toHexString(3) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(3);
                 break;
             case R.id.card4:
-                myCards[numberOfCards] = Integer.toHexString(4) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(4);
                 break;
             case R.id.card5:
-                myCards[numberOfCards] = Integer.toHexString(5) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(5);
                 break;
             case R.id.card6:
-                myCards[numberOfCards] = Integer.toHexString(6) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(6);
                 break;
             case R.id.card7:
-                myCards[numberOfCards] = Integer.toHexString(7) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(7);
                 break;
             case R.id.card8:
-                myCards[numberOfCards] = Integer.toHexString(8) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(8);
                 break;
             case R.id.card9:
-                myCards[numberOfCards] = Integer.toHexString(9) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(9);
                 break;
             case R.id.card10:
-                myCards[numberOfCards] = Integer.toHexString(10) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(10);
                 break;
             case R.id.cardJ:
-                myCards[numberOfCards] = Integer.toHexString(11) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(11);
                 break;
             case R.id.cardQ:
-                myCards[numberOfCards] = Integer.toHexString(12) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(12);
                 break;
             case R.id.cardK:
-                myCards[numberOfCards] = Integer.toHexString(13) + suit;
-                numberOfCards++;
-                numVisible(false);
+                addCard(13);
                 break;
 
             case R.id.hand1:
                 numberOfCards = 0;
-//                resetCardsImages(numberOfCards);
+                select(numberOfCards);
                 break;
             case R.id.hand2:
                 numberOfCards = 1;
-//                resetCardsImages(numberOfCards);
+                select(numberOfCards);
                 break;
             case R.id.hand3:
                 numberOfCards = 2;
-//                resetCardsImages(numberOfCards);
+                select(numberOfCards);
                 break;
             case R.id.hand4:
                 numberOfCards = 3;
-//                resetCardsImages(numberOfCards);
+                select(numberOfCards);
                 break;
             case R.id.hand5:
                 numberOfCards = 4;
-//                resetCardsImages(numberOfCards);
+                select(numberOfCards);
                 break;
             case R.id.hand6:
                 numberOfCards = 5;
-//                resetCardsImages(numberOfCards);
+                select(numberOfCards);
                 break;
             case R.id.hand7:
                 numberOfCards = 6;
-//                resetCardsImages(numberOfCards);
+                select(numberOfCards);
                 break;
         }
     }
