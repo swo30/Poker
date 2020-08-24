@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //The debugger
     Button DebugButton;
     Button nextButton;
-    Button undoButton;
+    Button deleteButton;
     Button resetButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         DebugButton  = findViewById(R.id.DebugButton);
         nextButton   = findViewById(R.id.nextButton);
-        undoButton   = findViewById(R.id.undoButton);
+        deleteButton   = findViewById(R.id.deleteButton);
         resetButton   = findViewById(R.id.resetButton);
 
         clubButtn    = findViewById(R.id.club);
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         DebugButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-        undoButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
 
         clubButtn   .setOnClickListener(this);
@@ -165,12 +165,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void undo() {
-        if (myCards[0] != "00") {
-            myCards[numberOfCards - 1] = "00";
-            setImages();
-            numberOfCards -= 1;
-        }
+    public void delete() {
+        if(numberOfCards ==0)
+            return;
+        if (selectedCard != -1) {
+            Drawable[] layers = new Drawable[1];
+            layers[0] = getResources().getDrawable(R.drawable.empty);
+            LayerDrawable layerDraw = new LayerDrawable(layers);
+            handButtons[selectedCard+1].setImageDrawable(layerDraw);
+            myCards[selectedCard+1] = "00";
+            numberOfCards = selectedCard;
+            selectedCard =-1;
+        }else{
+            Drawable[] layers = new Drawable[1];
+            layers[0] = getResources().getDrawable(R.drawable.empty);
+            LayerDrawable layerDraw = new LayerDrawable(layers);
+            handButtons[numberOfCards > 7 ? numberOfCards = 6: numberOfCards].setImageDrawable(layerDraw);
+            myCards[numberOfCards -1] = "00";
+            numberOfCards--;
+    }
     }
 
     public void reset() {
@@ -217,8 +230,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 goToTableCards();
                 break;
 
-            case R.id.undoButton:
-                undo();
+            case R.id.deleteButton:
+                delete();
                 break;
 
             case R.id.resetButton:
